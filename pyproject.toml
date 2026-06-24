@@ -1,7 +1,7 @@
 [project]
 name = "eventmm-kalshi"
 version = "0.1.0"
-description = "Add your description here"
+description = "Kalshi event market making research and backtesting toolkit"
 readme = "README.md"
 authors = [
     { name = "Vihaan-Narvekar", email = "narvekarvihaan@gmail.com" }
