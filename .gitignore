@@ -1,0 +1,16 @@
+.env
+.DS_Store
+*.pyc
+*.pem
+*.key
+secrets/
+data/raw/
+data/processed/
+data/duckdb/
+data/registry/
+artifacts/
+__pycache__/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+.venv/

@@ -1,0 +1,5 @@
+modeling:
+  dataset: weather_nyc_smoke_v1_features
+  label_col: label
+  model: logistic_regression
+  feature_set: weather_market

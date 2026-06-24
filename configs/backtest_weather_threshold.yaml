@@ -1,0 +1,12 @@
+run_name: weather_threshold_v1
+dataset: weather_nyc_smoke_v1_features
+
+strategy:
+  name: threshold_signal_taker
+  min_edge_cents: 5
+  quantity: 1
+
+fees:
+  mode: fixed_per_contract
+  fixed_fee_cents_per_contract: 0.1
+  include_fees: true

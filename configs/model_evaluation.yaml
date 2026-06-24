@@ -1,0 +1,7 @@
+evaluation:
+  metrics:
+    - log_loss
+    - brier_score
+    - roc_auc
+  calibration_bins: 10
+  split: contract_date

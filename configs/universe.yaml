@@ -1,0 +1,21 @@
+data_source:
+  environment: prod_public
+  allow_research_metrics: true
+  allow_backtesting: false
+  allow_execution_testing: false
+
+universe:
+  status: open
+  max_markets: 100
+  min_volume: 100
+  min_open_interest: 100
+  max_spread_cents: 20
+  preferred_categories:
+    - Climate and Weather
+    - Economics
+    - Financials
+  exclude_keywords:
+    - election
+    - nominee
+    - president
+    - politics

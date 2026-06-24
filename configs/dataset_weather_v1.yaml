@@ -1,0 +1,9 @@
+dataset:
+  name: weather_v1
+  universe: weather
+  sources:
+    kalshi: book_features
+    forecast: nws_hourly_forecasts
+    observations: noaa_daily_observations
+  require_resolved_labels: true
+  enforce_asof_forecasts: true

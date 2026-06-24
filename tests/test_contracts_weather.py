@@ -1,0 +1,24 @@
+from eventmm.contracts.weather import parse_weather_contract
+
+
+def test_parse_weather_contract_title():
+    spec = parse_weather_contract(
+        {
+            "ticker": "KXHIGHNY-26JUN26-T85",
+            "title": "Will the high temperature in NYC be above 85°F on Jun 26?",
+            "close_time": "2026-06-26T22:00:00Z",
+        }
+    )
+
+    assert spec.parse_status == "parsed"
+    assert spec.location == "NYC"
+    assert spec.threshold_value == 85
+    assert spec.threshold_unit == "F"
+    assert spec.comparison_operator == ">"
+
+
+def test_failed_weather_parse_is_reviewable():
+    spec = parse_weather_contract({"ticker": "TEST", "title": "Will it rain?"})
+
+    assert spec.parse_status == "failed"
+    assert spec.parse_error

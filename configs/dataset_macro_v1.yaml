@@ -1,0 +1,8 @@
+dataset:
+  name: macro_v1
+  universe: macro
+  status: placeholder
+  sources:
+    kalshi: book_features
+    fred: fred_observations
+    bls: bls_timeseries

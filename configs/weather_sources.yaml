@@ -1,0 +1,38 @@
+weather:
+  primary_sources:
+    forecast:
+      name: nws_api
+      base_url: https://api.weather.gov
+    historical:
+      name: noaa_cdo
+      base_url: https://www.ncei.noaa.gov/cdo-web/api/v2
+
+  locations:
+    NYC:
+      latitude: 40.7128
+      longitude: -74.0060
+      station_candidates:
+        - KNYC
+        - KLGA
+        - KJFK
+    CHICAGO:
+      latitude: 41.8781
+      longitude: -87.6298
+      station_candidates:
+        - KMDW
+        - KORD
+    MIAMI:
+      latitude: 25.7617
+      longitude: -80.1918
+      station_candidates:
+        - KMIA
+    AUSTIN:
+      latitude: 30.2672
+      longitude: -97.7431
+      station_candidates:
+        - KAUS
+    BOSTON:
+      latitude: 42.3601
+      longitude: -71.0589
+      station_candidates:
+        - KBOS

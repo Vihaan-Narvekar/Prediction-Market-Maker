@@ -1,0 +1,10 @@
+services:
+  eventmm:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./configs:/app/configs
+      - ./secrets:/app/secrets
+    command: ["uv", "run", "eventmm", "markets", "--status", "open"]
