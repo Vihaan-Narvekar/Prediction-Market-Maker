@@ -49,6 +49,10 @@ from eventmm.modeling.evaluation import calibration_table, evaluate_probabilitie
 from eventmm.modeling.features import FEATURE_SETS
 from eventmm.modeling.models import make_logistic_regression_model
 from eventmm.modeling.registry import ModelRegistry
+from eventmm.monitoring.collector_reports import (
+    build_collector_health,
+    build_orderbook_audit,
+)
 from eventmm.pipelines.weather_collector import WeatherCollectorPipeline
 from eventmm.reports.calibration_report import write_calibration_report
 from eventmm.reports.model_report import write_model_report
@@ -59,9 +63,13 @@ app = typer.Typer(help="Kalshi event market-making research tools.")
 datasets_app = typer.Typer(help="Dataset registry commands.")
 models_app = typer.Typer(help="Part 3 fair-value modeling commands.")
 backtest_app = typer.Typer(help="Event-driven backtesting commands.")
+collector_app = typer.Typer(help="Live collector observability commands.")
+orderbooks_app = typer.Typer(help="Order-book audit commands.")
 app.add_typer(datasets_app, name="datasets")
 app.add_typer(models_app, name="models")
 app.add_typer(backtest_app, name="backtest")
+app.add_typer(collector_app, name="collector")
+app.add_typer(orderbooks_app, name="orderbooks")
 console = Console()
 
 WEATHER_LOCATIONS: dict[str, dict[str, Any]] = {
@@ -799,9 +807,23 @@ def build_dataset(
     start: str = typer.Option(...),
     end: str = typer.Option(...),
     universe: str = "weather",
+    require_labels: bool = typer.Option(
+        False,
+        "--require-labels",
+        help="Build a supervised training dataset by excluding unresolved rows.",
+    ),
+    allow_unresolved_labels: bool = typer.Option(
+        False,
+        "--allow-unresolved-labels",
+        help="Build a live/inference dataset where label may be null.",
+    ),
 ) -> None:
     if universe != "weather":
         raise typer.BadParameter("Only the weather universe is implemented for Part 2.")
+    if require_labels and allow_unresolved_labels:
+        raise typer.BadParameter(
+            "Use either --require-labels or --allow-unresolved-labels, not both."
+        )
 
     base = settings.data_dir / "processed"
     contracts = _read_parquet_dir(base / "contracts" / "weather_contract_specs")
@@ -858,8 +880,13 @@ def build_dataset(
         contract_specs=contracts,
         labels=labels,
         observations=observations,
+        require_labels=require_labels,
     )
     console.print(f"Wrote dataset to {out_path}")
+    if require_labels:
+        console.print("Dataset mode: training/resolved-only labels.")
+    elif allow_unresolved_labels:
+        console.print("Dataset mode: live inference; unresolved labels allowed.")
 
 
 @app.command("validate-dataset")
@@ -995,6 +1022,48 @@ def dataset_feature_coverage(
             row["missing_columns"],
         )
     console.print(set_table)
+
+
+@collector_app.command("health")
+def collector_health(
+    series: str = "KXHIGHNY",
+    since: str = "24h",
+) -> None:
+    health = build_collector_health(settings.data_dir, series=series, since=since)
+    table = Table(title=f"Collector Health: {series} since {since}")
+    table.add_column("Metric")
+    table.add_column("Value", justify="right")
+    for key, value in health.as_dict().items():
+        if isinstance(value, float):
+            display = f"{value:.1f}%"
+        else:
+            display = "" if value is None else str(value)
+        table.add_row(key, display)
+    console.print(table)
+
+
+@orderbooks_app.command("audit")
+def orderbooks_audit(
+    series: str = "KXHIGHNY",
+    since: str = "24h",
+) -> None:
+    audit = build_orderbook_audit(settings.data_dir, series=series, since=since)
+    table = Table(title=f"Order-book Audit: {series} since {since}")
+    table.add_column("Metric")
+    table.add_column("Value", justify="right")
+    summary = audit.as_dict()
+    top_markets = summary.pop("top_markets")
+    for key, value in summary.items():
+        table.add_row(key, "" if value is None else str(value))
+    console.print(table)
+
+    if top_markets:
+        top_table = Table(title="Markets with Most Snapshots")
+        top_table.add_column("Market")
+        top_table.add_column("Snapshots", justify="right")
+        for row in top_markets:
+            top_table.add_row(str(row["market_ticker"]), str(row["snapshots"]))
+        console.print(top_table)
 
 
 @models_app.command("inspect-dataset")

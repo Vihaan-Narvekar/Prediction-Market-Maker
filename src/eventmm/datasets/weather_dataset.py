@@ -17,6 +17,7 @@ def build_weather_dataset(
     contract_specs: pl.DataFrame,
     labels: pl.DataFrame | None = None,
     observations: pl.DataFrame | None = None,
+    require_labels: bool = False,
 ) -> Path:
     dataset = asof_join_market_weather(
         market_features=market_features,
@@ -25,6 +26,12 @@ def build_weather_dataset(
         labels=labels,
         observations=observations,
     )
+    if require_labels:
+        if "label" not in dataset.columns:
+            raise ValueError(
+                "Cannot require labels because joined dataset has no label column."
+            )
+        dataset = dataset.filter(pl.col("label").is_not_null())
     out_dir = data_dir / "processed" / "datasets" / name
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "part-0.parquet"

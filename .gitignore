@@ -9,6 +9,7 @@ data/processed/
 data/duckdb/
 data/registry/
 artifacts/
+logs/
 __pycache__/
 .ipynb_checkpoints/
 .mypy_cache/
