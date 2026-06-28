@@ -15,12 +15,12 @@ Weather market titles are converted into structured threshold contracts with loc
 Forecast rows are joined only when `forecast_issue_ts <= as_of_ts`.
 
 ## Dataset Validation
-- dataset: weather_nyc_smoke_v1
-- rows: 138
-- markets: 138
+- dataset: weather_nyc_live_v1
+- rows: 2544
+- markets: 42
 - future leakage rows: 0
-- missing labels: 6
-- missing forecast rows: 132
+- missing labels: 450
+- missing forecast rows: 0
 
 ## Next Step
 Part 3: fair-value modeling and calibration.

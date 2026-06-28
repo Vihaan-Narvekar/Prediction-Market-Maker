@@ -124,6 +124,31 @@ class OrderBookAudit:
         return self.__dict__.copy()
 
 
+@dataclass(frozen=True)
+class WeatherCoverage:
+    nws_forecast_rows: int
+    nws_forecast_files: int
+    forecast_versions: int
+    forecast_issue_start: str | None
+    forecast_issue_end: str | None
+    forecast_date_start: str | None
+    forecast_date_end: str | None
+    noaa_observation_rows: int
+    noaa_observation_files: int
+    noaa_observed_date_start: str | None
+    noaa_observed_date_end: str | None
+    noaa_locations: int
+    dataset_rows: int
+    dataset_observed_temperature_rows: int
+    dataset_observed_temperature_pct: float
+    dataset_contract_date_start: str | None
+    dataset_contract_date_end: str | None
+    dataset_unresolved_observation_rows: int
+
+    def as_dict(self) -> dict[str, Any]:
+        return self.__dict__.copy()
+
+
 def _book_state(book_features: pl.DataFrame) -> pl.DataFrame:
     if len(book_features) == 0:
         return book_features
@@ -287,4 +312,78 @@ def build_orderbook_audit(
         markets_with_snapshots=len(markets_with_books),
         markets_with_no_snapshots=len(markets_seen - markets_with_books),
         top_markets=top_markets,
+    )
+
+
+def build_weather_coverage(
+    data_dir: Path,
+    *,
+    dataset: str | None = None,
+) -> WeatherCoverage:
+    processed = data_dir / "processed"
+    nws_path = processed / "external" / "nws_hourly_forecasts"
+    versions_path = processed / "external" / "forecast_versions"
+    noaa_path = processed / "external" / "noaa_daily_observations"
+    nws_files = sorted(nws_path.glob("*.parquet")) if nws_path.exists() else []
+    noaa_files = sorted(noaa_path.glob("*.parquet")) if noaa_path.exists() else []
+    forecast_versions = (
+        len(list(versions_path.glob("*.parquet"))) if versions_path.exists() else 0
+    )
+    forecasts = read_parquet_dir(nws_path)
+    noaa = read_parquet_dir(noaa_path)
+
+    dataset_df = pl.DataFrame()
+    if dataset:
+        dataset_path = processed / "datasets" / dataset
+        dataset_df = read_parquet_dir(dataset_path)
+
+    observed_rows = _non_null_count(dataset_df, "observed_temperature")
+    dataset_rows = len(dataset_df)
+    unresolved_obs_rows = 0
+    if len(dataset_df) and {"contract_date", "observed_temperature"}.issubset(
+        dataset_df.columns
+    ):
+        unresolved_obs_rows = dataset_df.filter(
+            pl.col("contract_date").is_not_null()
+            & pl.col("observed_temperature").is_null()
+        ).height
+
+    return WeatherCoverage(
+        nws_forecast_rows=len(forecasts),
+        nws_forecast_files=len(nws_files),
+        forecast_versions=forecast_versions,
+        forecast_issue_start=_latest(
+            forecasts.select(
+                pl.col("forecast_issue_ts").min().alias("forecast_issue_ts")
+            )
+            if "forecast_issue_ts" in forecasts.columns
+            else forecasts,
+            "forecast_issue_ts",
+        ),
+        forecast_issue_end=_latest(forecasts, "forecast_issue_ts"),
+        forecast_date_start=str(forecasts.select(pl.col("forecast_date").min()).item())
+        if "forecast_date" in forecasts.columns and len(forecasts)
+        else None,
+        forecast_date_end=_latest(forecasts, "forecast_date"),
+        noaa_observation_rows=len(noaa),
+        noaa_observation_files=len(noaa_files),
+        noaa_observed_date_start=str(noaa.select(pl.col("date").min()).item())
+        if "date" in noaa.columns and len(noaa)
+        else None,
+        noaa_observed_date_end=_latest(noaa, "date"),
+        noaa_locations=noaa.select("location").n_unique()
+        if "location" in noaa.columns
+        else 0,
+        dataset_rows=dataset_rows,
+        dataset_observed_temperature_rows=observed_rows,
+        dataset_observed_temperature_pct=(observed_rows / dataset_rows * 100)
+        if dataset_rows
+        else 0.0,
+        dataset_contract_date_start=str(
+            dataset_df.select(pl.col("contract_date").min()).item()
+        )
+        if "contract_date" in dataset_df.columns and len(dataset_df)
+        else None,
+        dataset_contract_date_end=_latest(dataset_df, "contract_date"),
+        dataset_unresolved_observation_rows=unresolved_obs_rows,
     )

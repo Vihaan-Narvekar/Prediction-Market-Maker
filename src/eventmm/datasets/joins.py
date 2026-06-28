@@ -1,6 +1,27 @@
 import polars as pl
 
 
+def _aggregate_daily_observations(observations: pl.DataFrame) -> pl.DataFrame:
+    obs = observations.with_columns(
+        pl.col("date").cast(pl.Date),
+        pl.col("value").cast(pl.Float64).alias("observed_temperature"),
+    )
+    return (
+        obs.sort(
+            ["location", "date", "observed_temperature", "station_id"],
+            descending=[False, False, True, False],
+        )
+        .group_by(["location", "date"])
+        .first()
+        .select(
+            "location",
+            pl.col("date").alias("contract_date"),
+            "station_id",
+            "observed_temperature",
+        )
+    )
+
+
 def asof_join_market_weather(
     market_features: pl.DataFrame,
     weather_forecasts: pl.DataFrame,
@@ -51,21 +72,7 @@ def asof_join_market_weather(
 
     result = pl.DataFrame(rows) if rows else joined
     if observations is not None and len(observations) > 0:
-        obs = observations.with_columns(
-            pl.col("date").cast(pl.Date),
-            pl.col("value").cast(pl.Float64).alias("observed_temperature"),
-        )
-        obs = (
-            obs.sort(["location", "date", "station_id"])
-            .group_by(["location", "date"])
-            .first()
-            .select(
-                "location",
-                pl.col("date").alias("contract_date"),
-                "station_id",
-                "observed_temperature",
-            )
-        )
+        obs = _aggregate_daily_observations(observations)
         result = result.drop(
             [
                 col
@@ -99,4 +106,11 @@ def asof_join_market_weather(
         result = result.join(
             labels.select(label_columns), on="market_ticker", how="left"
         )
+        if {"observed_temperature", "observed_value"}.issubset(result.columns):
+            result = result.with_columns(
+                pl.coalesce(
+                    pl.col("observed_temperature"),
+                    pl.col("observed_value").cast(pl.Float64, strict=False),
+                ).alias("observed_temperature")
+            )
     return result

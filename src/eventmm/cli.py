@@ -52,6 +52,7 @@ from eventmm.modeling.registry import ModelRegistry
 from eventmm.monitoring.collector_reports import (
     build_collector_health,
     build_orderbook_audit,
+    build_weather_coverage,
 )
 from eventmm.pipelines.weather_collector import WeatherCollectorPipeline
 from eventmm.reports.calibration_report import write_calibration_report
@@ -113,7 +114,7 @@ def _load_contract_overrides(
 
 
 def _read_parquet_dir(path: Path) -> pl.DataFrame | None:
-    files = list(path.glob("*.parquet"))
+    files = sorted(path.glob("*.parquet"))
     if not files:
         return None
     return pl.concat([pl.read_parquet(file) for file in files], how="diagonal_relaxed")
@@ -560,6 +561,7 @@ def run_weather_collector(
 
     async def collect_markets() -> None:
         await _collect_kalshi_market_metadata(series)
+        await _parse_contracts(series, apply_overrides=True)
 
     async def collect_book_features() -> None:
         await _collect_current_orderbook_snapshots(series)
@@ -838,6 +840,8 @@ def build_dataset(
         )
     if "market_ticker" in contracts.columns:
         contracts = contracts.unique(subset=["market_ticker"], keep="last")
+    if "parse_status" in contracts.columns:
+        contracts = contracts.filter(pl.col("parse_status") == "parsed")
     if "contract_date" in contracts.columns:
         contracts = contracts.with_columns(pl.col("contract_date").cast(pl.Date))
         contracts = contracts.filter(
@@ -1034,6 +1038,23 @@ def collector_health(
     table.add_column("Metric")
     table.add_column("Value", justify="right")
     for key, value in health.as_dict().items():
+        if isinstance(value, float):
+            display = f"{value:.1f}%"
+        else:
+            display = "" if value is None else str(value)
+        table.add_row(key, display)
+    console.print(table)
+
+
+@collector_app.command("weather-coverage")
+def collector_weather_coverage(
+    dataset: str | None = "weather_nyc_live_v1",
+) -> None:
+    coverage = build_weather_coverage(settings.data_dir, dataset=dataset)
+    table = Table(title="Weather Data Coverage")
+    table.add_column("Metric")
+    table.add_column("Value", justify="right")
+    for key, value in coverage.as_dict().items():
         if isinstance(value, float):
             display = f"{value:.1f}%"
         else:
