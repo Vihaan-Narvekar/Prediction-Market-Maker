@@ -11,4 +11,9 @@ def microprice_probability(df: pl.DataFrame) -> np.ndarray:
 
 
 def forecast_threshold_probability(df: pl.DataFrame) -> np.ndarray:
-    return df["forecast_above_threshold"].to_numpy().clip(0.001, 0.999)
+    column = (
+        "forecast_event_indicator"
+        if "forecast_event_indicator" in df.columns
+        else "forecast_above_threshold"
+    )
+    return df[column].to_numpy().clip(0.001, 0.999)

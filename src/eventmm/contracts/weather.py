@@ -47,9 +47,8 @@ TEMP_RANGE_RE = re.compile(
 
 TEMP_THRESHOLD_RE = re.compile(
     r"(?P<location>NYC|New York City|New York|Chicago|Miami|Austin|Boston)"
-    r".*?(?P<symbol>[<>])?\s?"
-    r".*?(?P<operator>above|over|at least|below|under|less than|greater than)?"
-    r".*?(?P<threshold>-?\d+(?:\.\d+)?)\s?(?:°\s?F?|F|degrees?)?",
+    r".*?(?P<operator><|>|above|over|at least|below|under|less than|greater than)"
+    r"\s*(?P<threshold>-?\d+(?:\.\d+)?)\s?(?:°\s?F?|F|degrees?)?",
     re.IGNORECASE,
 )
 
@@ -104,17 +103,13 @@ def _normalize_operator(operator: str | None) -> str:
     if not operator:
         return ">"
     normalized = operator.lower()
+    if normalized in {">", "<"}:
+        return normalized
     if normalized in {"above", "over", "greater than", "at least"}:
         return ">"
     if normalized in {"below", "under", "less than"}:
         return "<"
     return ">"
-
-
-def _normalize_symbol_or_operator(symbol: str | None, operator: str | None) -> str:
-    if symbol in {">", "<"}:
-        return symbol
-    return _normalize_operator(operator)
 
 
 def _parse_date(value: Any) -> date | None:
@@ -219,10 +214,7 @@ def parse_weather_contract(
         contract_date=contract_date,
         threshold_value=float(match.group("threshold")),
         threshold_unit="F",
-        comparison_operator=_normalize_symbol_or_operator(
-            match.group("symbol"),
-            match.group("operator"),
-        ),
+        comparison_operator=_normalize_operator(match.group("operator")),
         parse_status="parsed",
     )
 

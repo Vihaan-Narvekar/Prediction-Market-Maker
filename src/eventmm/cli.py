@@ -318,7 +318,7 @@ async def _collect_current_orderbook_snapshots(series: str) -> None:
 def _write_validation_report(
     name: str, df: pl.DataFrame, stats: dict[str, int], error: str | None
 ) -> Path:
-    report_path = Path("reports") / "part_2_weather_nyc_smoke_validation.md"
+    report_path = Path("reports") / "part_2_weather_nyc_main_validation.md"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     start = (
         str(df.select(pl.col("as_of_ts").min()).item())
@@ -331,7 +331,7 @@ def _write_validation_report(
         else ""
     )
     lines = [
-        "# Part 2 Weather NYC Smoke Validation",
+        "# Part 2 Weather NYC Main Validation",
         "",
         f"Dataset name: {name}",
         f"Rows: {stats.get('rows', 0)}",
@@ -1048,7 +1048,7 @@ def collector_health(
 
 @collector_app.command("weather-coverage")
 def collector_weather_coverage(
-    dataset: str | None = "weather_nyc_live_v1",
+    dataset: str | None = "weather_nyc_main_v1",
 ) -> None:
     coverage = build_weather_coverage(settings.data_dir, dataset=dataset)
     table = Table(title="Weather Data Coverage")
@@ -1089,7 +1089,7 @@ def orderbooks_audit(
 
 @models_app.command("inspect-dataset")
 def inspect_modeling_dataset(
-    dataset: str = "weather_nyc_smoke_v1_features",
+    dataset: str = "weather_nyc_main_v1_features",
     feature_set: str = "weather_market",
 ) -> None:
     feature_cols = FEATURE_SETS[feature_set]
@@ -1109,7 +1109,7 @@ def inspect_modeling_dataset(
 
 @models_app.command("evaluate-baselines")
 def evaluate_baselines(
-    dataset: str = "weather_nyc_smoke_v1_features",
+    dataset: str = "weather_nyc_main_v1_features",
     feature_set: str = "market_only",
 ) -> None:
     df = pl.read_parquet(str(_model_dataset_dir() / dataset / "*.parquet"))
@@ -1140,8 +1140,13 @@ def evaluate_baselines(
                     ),
                 }
             )
-    if {"label", "forecast_above_threshold"}.issubset(df.columns):
-        scored = df.drop_nulls(["label", "forecast_above_threshold"])
+    forecast_signal_col = (
+        "forecast_event_indicator"
+        if "forecast_event_indicator" in df.columns
+        else "forecast_above_threshold"
+    )
+    if {"label", forecast_signal_col}.issubset(df.columns):
+        scored = df.drop_nulls(["label", forecast_signal_col])
         if len(scored) > 0:
             rows.append(
                 {
@@ -1163,9 +1168,9 @@ def evaluate_baselines(
 
 @models_app.command("train-logistic")
 def train_logistic(
-    dataset: str = "weather_nyc_smoke_v1_features",
+    dataset: str = "weather_nyc_main_v1_features",
     feature_set: str = "weather_market",
-    run_name: str = "weather_logistic_smoke",
+    run_name: str = "weather_logistic_main_v1",
     model_id: str | None = None,
     min_rows: int = 30,
 ) -> None:
@@ -1225,7 +1230,7 @@ def train_logistic(
 
 
 @backtest_app.command("inspect-data")
-def backtest_inspect_data(dataset: str = "weather_nyc_smoke_v1_features") -> None:
+def backtest_inspect_data(dataset: str = "weather_nyc_main_v1_features") -> None:
     df = load_backtest_dataset(dataset, data_dir=_model_dataset_dir())
     summary = summarize_backtest_data(df)
     table = Table(title=f"Backtest data: {dataset}")

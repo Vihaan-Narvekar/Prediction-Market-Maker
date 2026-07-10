@@ -16,6 +16,8 @@ class ThresholdSignalTaker(Strategy):
     def on_market_data(self, event: MarketDataEvent, row: dict) -> list[OrderEvent]:
         p_yes = row.get("p_model")
         if p_yes is None:
+            p_yes = row.get("forecast_event_indicator")
+        if p_yes is None:
             p_yes = row.get("forecast_above_threshold")
         if p_yes is None:
             p_yes = (row.get("market_mid") or 50) / 100
@@ -39,6 +41,7 @@ class ThresholdSignalTaker(Strategy):
         if (
             signal.buy_yes_edge is not None
             and signal.buy_yes_edge >= self.min_edge_cents
+            and event.best_yes_ask is not None
         ):
             orders.append(
                 OrderEvent(
@@ -54,6 +57,7 @@ class ThresholdSignalTaker(Strategy):
         if (
             signal.sell_yes_edge is not None
             and signal.sell_yes_edge >= self.min_edge_cents
+            and event.best_yes_bid is not None
         ):
             orders.append(
                 OrderEvent(

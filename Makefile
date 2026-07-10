@@ -13,6 +13,11 @@ typecheck:
 test:
 	uv run pytest -q
 
+notebooks-check:
+	JUPYTER_CONFIG_DIR=/tmp/eventmm-jupyter uv run jupyter nbconvert --execute --to notebook --output-dir /tmp/eventmm-notebooks --ExecutePreprocessor.timeout=180 notebooks/*.ipynb
+
+check: lint typecheck test notebooks-check
+
 markets:
 	uv run eventmm markets --status open --limit 20
 

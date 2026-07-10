@@ -1,5 +1,5 @@
 modeling:
-  dataset: weather_nyc_smoke_v1_features
+  dataset: weather_nyc_main_v1_features
   label_col: label
   baseline_models:
     - market_midpoint

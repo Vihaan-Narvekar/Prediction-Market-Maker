@@ -1,5 +1,5 @@
 run_name: weather_market_making_placeholder
-dataset: weather_nyc_smoke_v1_features
+dataset: weather_nyc_main_v1_features
 
 strategy:
   name: passive_market_making_placeholder

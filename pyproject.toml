@@ -11,6 +11,7 @@ dependencies = [
     "cryptography>=42.0.0",
     "duckdb>=1.0.0",
     "httpx>=0.28.1",
+    "joblib>=1.4.0",
     "numpy>=1.26.0",
     "orjson>=3.10.0",
     "pandas>=2.0.0",
@@ -47,5 +48,36 @@ dev = [
     "pre-commit>=4.6.0",
     "pytest>=9.1.1",
     "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.0.0",
     "ruff>=0.15.18",
+    "types-pyyaml>=6.0.12",
 ]
+
+[tool.pytest.ini_options]
+addopts = "--cov=eventmm --cov-report=term-missing --cov-report=xml --cov-fail-under=40"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["eventmm"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src"]
+check_untyped_defs = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "joblib",
+    "sklearn.*",
+]
+ignore_missing_imports = true

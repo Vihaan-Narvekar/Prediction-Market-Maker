@@ -2,9 +2,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock* ./
-RUN pip install uv && uv sync --frozen || uv sync
+RUN pip install --no-cache-dir uv
 
 COPY . .
+RUN uv sync --frozen --no-dev
 
-CMD ["uv", "run", "eventmm", "markets", "--status", "open"]
+CMD ["uv", "run", "--no-dev", "eventmm", "markets", "--status", "open"]

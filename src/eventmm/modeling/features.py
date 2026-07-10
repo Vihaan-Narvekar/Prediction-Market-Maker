@@ -15,14 +15,14 @@ MICROSTRUCTURE = [
 WEATHER_ONLY = [
     "forecast_minus_threshold",
     "abs_forecast_distance_to_threshold",
-    "forecast_above_threshold",
+    "forecast_event_indicator",
     "time_to_expiry_hours",
 ]
 
 WEATHER_MARKET = [
     "forecast_minus_threshold",
     "abs_forecast_distance_to_threshold",
-    "forecast_above_threshold",
+    "forecast_event_indicator",
     "market_mid",
     "market_spread",
     "time_to_expiry_hours",
@@ -31,7 +31,7 @@ WEATHER_MARKET = [
 FULL = [
     "forecast_minus_threshold",
     "abs_forecast_distance_to_threshold",
-    "forecast_above_threshold",
+    "forecast_event_indicator",
     "market_mid",
     "market_microprice",
     "market_spread",

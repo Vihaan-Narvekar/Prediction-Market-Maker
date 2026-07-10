@@ -1,5 +1,5 @@
-run_name: weather_signal_taking_v1
-dataset: weather_nyc_smoke_v1_features
+run_name: weather_signal_taking_main_v1
+dataset: weather_nyc_main_v1_features
 
 strategy:
   name: threshold_signal_taker

@@ -1,3 +1,5 @@
+from typing import Literal
+
 from eventmm.backtest.events import FillEvent, MarketDataEvent, OrderEvent
 from eventmm.backtest.fees import FeeModel
 
@@ -41,7 +43,12 @@ class FillSimulator:
             return 100 - market.best_yes_ask
         return None
 
-    def _fill(self, order: OrderEvent, price_cents: float, liquidity: str) -> FillEvent:
+    def _fill(
+        self,
+        order: OrderEvent,
+        price_cents: float,
+        liquidity: Literal["taker", "maker", "simulated"],
+    ) -> FillEvent:
         return FillEvent(
             ts=order.ts,
             market_ticker=order.market_ticker,
