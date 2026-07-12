@@ -5,6 +5,7 @@ import polars as pl
 from eventmm.monitoring.collector_reports import (
     build_collector_health,
     build_orderbook_audit,
+    check_collector_freshness,
     parse_since,
 )
 
@@ -75,3 +76,11 @@ def test_collector_health_and_orderbook_audit(tmp_path):
     assert audit.one_sided_books == 1
     assert audit.two_sided_books == 1
     assert audit.valid_midpoint_rows == 1
+
+    freshness = check_collector_freshness(
+        tmp_path,
+        series="KXHIGHNY",
+        max_age_minutes=90,
+        now=datetime(2026, 6, 25, 10, 10, tzinfo=timezone.utc),
+    )
+    assert freshness.healthy

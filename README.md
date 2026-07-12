@@ -74,6 +74,7 @@ Run one weather collection cycle:
 ```bash
 uv run eventmm run-weather-collector --locations NYC --series KXHIGHNY --iterations 1
 uv run eventmm collector health --series KXHIGHNY --since 24h
+uv run eventmm collector freshness --series KXHIGHNY --max-age-minutes 30
 uv run eventmm collector weather-coverage --dataset weather_nyc_main_v1
 uv run eventmm orderbooks audit --series KXHIGHNY --since all
 ```
@@ -84,8 +85,22 @@ The long-running personal collector wrapper is:
 ./scripts/run_live_weather_collector.sh
 ```
 
+On macOS, keep the machine awake while running it in the foreground with:
+
+```bash
+caffeinate -dimsu bash scripts/run_live_weather_collector.sh
+```
+
+Set the collection interval and freshness limit inline when needed:
+
+```bash
+SLEEP_SECONDS=900 MAX_AGE_MINUTES=30 \
+  caffeinate -dimsu bash scripts/run_live_weather_collector.sh
+```
+
 It is a simple shell-loop service. Run it under a local supervisor if automatic
-restart behavior is needed.
+restart behavior is needed. `caffeinate` prevents sleep only while that command
+is running; closing the terminal or restarting the Mac still stops collection.
 
 ## Weather dataset workflow
 
@@ -111,9 +126,23 @@ Inspect coverage and modeling readiness:
 uv run eventmm datasets list
 uv run eventmm datasets describe weather_nyc_main_v1
 uv run eventmm datasets feature-coverage --dataset weather_nyc_main_v1_features
+uv run eventmm datasets verify-manifest --dataset weather_nyc_main_v1_features
 uv run eventmm models inspect-dataset --dataset weather_nyc_main_v1_features
 uv run eventmm models evaluate-baselines --dataset weather_nyc_main_v1_features
+uv run eventmm models walk-forward --dataset weather_nyc_main_v1_features --feature-set weather-market
 ```
+
+Structural weather-market research:
+
+```bash
+uv run eventmm research partitions --dataset weather_nyc_main_v1_features
+uv run eventmm research simulate-baskets --dataset weather_nyc_main_v1_features --mode all-or-none
+uv run eventmm research simulate-baskets --dataset weather_nyc_main_v1_features --mode partial
+uv run eventmm research forecast-revisions
+```
+
+Basket simulation writes both basket summaries and fill-level Parquet files.
+Every fill records `depth_source=known` or `depth_source=assumed`.
 
 Train the current logistic prototype and run the simplified threshold backtest:
 
@@ -128,6 +157,11 @@ uv run eventmm backtest run --config configs/backtest_weather_threshold.yaml
 The current training command evaluates in-sample and the fill model is highly
 simplified. Out-of-sample splitting and more conservative execution simulation
 are the next research priorities.
+
+The walk-forward command is the decision-quality evaluation path. See
+[`docs/model_card_weather_logistic.md`](docs/model_card_weather_logistic.md),
+[`docs/backtest_methodology.md`](docs/backtest_methodology.md), and
+[`reports/weather_dataset_strategy_readiness.md`](reports/weather_dataset_strategy_readiness.md).
 
 ## Quality checks
 
@@ -148,7 +182,7 @@ JUPYTER_CONFIG_DIR=/tmp/eventmm-jupyter uv run jupyter nbconvert --execute --to 
 
 Pytest measures branch coverage for `src/eventmm` and fails below **40%**.
 It prints missing lines to the terminal and writes `coverage.xml`. The initial
-whole-package baseline is 43.89%; the threshold prevents a material regression
+whole-package baseline is 47.72%; the threshold prevents a material regression
 while remaining attainable for a personal research project whose CLI and
 external-service orchestration are not yet integration-tested. Raise it as
 collector, modeling, backtest, and CLI integration tests are added.
@@ -216,6 +250,12 @@ not currently implemented.
 6. Improve collector supervision, freshness alerts, and sequence-gap recovery.
 7. Add paper-trading state and reconciliation before considering live orders.
 
+The current dataset is already sufficient for structural partition analysis,
+fee-aware basket rejection tests, monotonicity monitoring, forecast-revision EDA,
+and execution-simulator development. Additional settled dates are primarily
+needed for model selection, calibration, and profitability claims—not for
+continuing implementation work.
+
 ## Next commit scope
 
 The next commit should be one cohesive quality-baseline commit containing:
@@ -225,7 +265,7 @@ The next commit should be one cohesive quality-baseline commit containing:
 - Notebook syntax/execution fixes.
 - Source typing fixes and narrowly scoped third-party mypy configuration.
 - Runtime/development dependency separation and the refreshed lockfile.
-- Test coverage reporting with the 40% minimum and documented 43.89% baseline.
+- Test coverage reporting with the 40% minimum and documented 47.72% baseline.
 - GitHub Actions CI, `.dockerignore`, and runtime-only Docker installation.
 - This expanded project documentation and the related research reports.
 

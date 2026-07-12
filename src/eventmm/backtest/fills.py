@@ -16,11 +16,25 @@ class FillSimulator:
         executable_price = self._executable_price(order, market)
         if executable_price is None:
             return None
+        available_depth = self._available_depth(order, market)
+        if available_depth is not None and available_depth <= 0:
+            return None
         if order.action == "buy" and executable_price <= order.price_cents:
-            return self._fill(order, executable_price, "taker")
+            return self._fill(order, executable_price, "taker", available_depth)
         if order.action == "sell" and executable_price >= order.price_cents:
-            return self._fill(order, executable_price, "taker")
+            return self._fill(order, executable_price, "taker", available_depth)
         return None
+
+    def _available_depth(
+        self, order: OrderEvent, market: MarketDataEvent
+    ) -> int | None:
+        if order.side == "yes" and order.action == "buy":
+            return market.yes_ask_depth
+        if order.side == "yes" and order.action == "sell":
+            return market.yes_bid_depth
+        if order.side == "no" and order.action == "buy":
+            return market.no_ask_depth
+        return market.no_bid_depth
 
     def _executable_price(
         self, order: OrderEvent, market: MarketDataEvent
@@ -48,16 +62,26 @@ class FillSimulator:
         order: OrderEvent,
         price_cents: float,
         liquidity: Literal["taker", "maker", "simulated"],
+        available_quantity: int | None = None,
     ) -> FillEvent:
+        quantity = (
+            min(order.quantity, available_quantity)
+            if available_quantity is not None
+            else order.quantity
+        )
+        if quantity <= 0:
+            raise ValueError("Fill quantity must be positive.")
         return FillEvent(
             ts=order.ts,
             market_ticker=order.market_ticker,
             side=order.side,
             action=order.action,
             price_cents=price_cents,
-            quantity=order.quantity,
+            quantity=quantity,
             fee_cents=self.fee_model.estimate_fee_cents(
-                price_cents, order.quantity, liquidity
+                price_cents, quantity, liquidity
             ),
             liquidity=liquidity,
+            requested_quantity=order.quantity,
+            depth_source="known" if available_quantity is not None else "assumed",
         )

@@ -3,6 +3,7 @@ from pathlib import Path
 import polars as pl
 
 from eventmm.datasets.joins import asof_join_market_weather
+from eventmm.datasets.manifest import write_dataset_manifest
 from eventmm.datasets.registry import DatasetRegistry, dataset_metadata_from_parquet
 
 
@@ -18,6 +19,7 @@ def build_weather_dataset(
     labels: pl.DataFrame | None = None,
     observations: pl.DataFrame | None = None,
     require_labels: bool = False,
+    source_paths: dict[str, list[Path]] | None = None,
 ) -> Path:
     dataset = asof_join_market_weather(
         market_features=market_features,
@@ -36,6 +38,17 @@ def build_weather_dataset(
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "part-0.parquet"
     dataset.write_parquet(out_path)
+    write_dataset_manifest(
+        out_dir,
+        dataset_name=name,
+        source_paths=source_paths or {},
+        build_config={
+            "start": start,
+            "end": end,
+            "require_labels": require_labels,
+            "join": "latest forecast_issue_ts <= as_of_ts",
+        },
+    )
     dataset_meta = dataset_metadata_from_parquet(out_dir)
 
     DatasetRegistry(data_dir / "registry").write_metadata(

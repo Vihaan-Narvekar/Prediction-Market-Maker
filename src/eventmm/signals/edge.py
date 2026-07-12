@@ -13,4 +13,16 @@ def add_edge_columns(df: pl.DataFrame) -> pl.DataFrame:
                 "edge_microprice"
             )
         )
+    if {"p_model", "best_yes_ask"}.issubset(df.columns):
+        expressions.append(
+            (pl.col("p_model") * 100 - pl.col("best_yes_ask")).alias(
+                "yes_edge_to_ask_cents"
+            )
+        )
+    if {"p_model", "best_no_ask"}.issubset(df.columns):
+        expressions.append(
+            ((1 - pl.col("p_model")) * 100 - pl.col("best_no_ask")).alias(
+                "no_edge_to_ask_cents"
+            )
+        )
     return df.with_columns(expressions) if expressions else df

@@ -10,9 +10,8 @@ def add_weather_baseline_features(df: pl.DataFrame) -> pl.DataFrame:
         range_condition: pl.Expr
         if "threshold_upper_value" in df.columns:
             range_condition = (
-                (pl.col("forecast_temperature") >= pl.col("threshold_value"))
-                & (pl.col("forecast_temperature") <= pl.col("threshold_upper_value"))
-            )
+                pl.col("forecast_temperature") >= pl.col("threshold_value")
+            ) & (pl.col("forecast_temperature") <= pl.col("threshold_upper_value"))
         else:
             range_condition = pl.lit(False)
         forecast_event_indicator = (

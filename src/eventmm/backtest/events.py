@@ -13,6 +13,10 @@ class MarketDataEvent:
     market_microprice: float | None
     spread: float | None
     depth_imbalance: float | None
+    yes_bid_depth: int | None = None
+    yes_ask_depth: int | None = None
+    no_bid_depth: int | None = None
+    no_ask_depth: int | None = None
 
 
 @dataclass(frozen=True)
@@ -56,6 +60,8 @@ class FillEvent:
     quantity: int
     fee_cents: float
     liquidity: Literal["taker", "maker", "simulated"]
+    requested_quantity: int | None = None
+    depth_source: Literal["known", "assumed"] = "assumed"
 
     def to_row(self) -> dict:
         return asdict(self)

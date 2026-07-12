@@ -7,6 +7,9 @@ strategy:
   quantity: 1
 
 fees:
-  mode: fixed_per_contract
-  fixed_fee_cents_per_contract: 0.1
+  mode: kalshi_quadratic
   include_fees: true
+
+risk:
+  max_market_position: 10
+  max_event_exposure: 30

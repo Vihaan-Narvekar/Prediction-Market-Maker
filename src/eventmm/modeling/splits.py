@@ -1,6 +1,24 @@
 import polars as pl
 
 
+def contract_date_walk_forward(
+    df: pl.DataFrame,
+    *,
+    date_col: str = "contract_date",
+    min_train_dates: int = 3,
+) -> list[tuple[pl.DataFrame, pl.DataFrame]]:
+    dates = df.select(date_col).drop_nulls().unique().sort(date_col)[date_col].to_list()
+    if len(dates) <= min_train_dates:
+        return []
+    return [
+        (
+            df.filter(pl.col(date_col).is_in(dates[:index])),
+            df.filter(pl.col(date_col) == dates[index]),
+        )
+        for index in range(min_train_dates, len(dates))
+    ]
+
+
 def temporal_split(
     df: pl.DataFrame,
     time_col: str,

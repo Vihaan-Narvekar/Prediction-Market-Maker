@@ -4,6 +4,7 @@ set -euo pipefail
 LOCATIONS="${LOCATIONS:-NYC}"
 SERIES="${SERIES:-KXHIGHNY}"
 SLEEP_SECONDS="${SLEEP_SECONDS:-300}"
+MAX_AGE_MINUTES="${MAX_AGE_MINUTES:-30}"
 LOG_DIR="${LOG_DIR:-logs}"
 LOG_FILE="${LOG_FILE:-${LOG_DIR}/weather_collector.log}"
 
@@ -19,6 +20,9 @@ while true; do
     uv run eventmm collector health \
       --series "${SERIES}" \
       --since 24h
+    uv run eventmm collector freshness \
+      --series "${SERIES}" \
+      --max-age-minutes "${MAX_AGE_MINUTES}"
   } >> "${LOG_FILE}" 2>&1
 
   sleep "${SLEEP_SECONDS}"

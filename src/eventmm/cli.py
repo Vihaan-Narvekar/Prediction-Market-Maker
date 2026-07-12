@@ -21,6 +21,7 @@ from eventmm.datasets.coverage import (
     compute_feature_set_coverage,
 )
 from eventmm.datasets.labels import build_market_labels
+from eventmm.datasets.manifest import verify_dataset_manifest, write_dataset_manifest
 from eventmm.datasets.registry import DatasetRegistry
 from eventmm.datasets.validation import (
     DatasetValidationError,
@@ -48,16 +49,24 @@ from eventmm.modeling.dataset import load_modeling_dataset
 from eventmm.modeling.evaluation import calibration_table, evaluate_probabilities
 from eventmm.modeling.features import FEATURE_SETS
 from eventmm.modeling.models import make_logistic_regression_model
+from eventmm.modeling.walk_forward import evaluate_walk_forward
 from eventmm.modeling.registry import ModelRegistry
 from eventmm.monitoring.collector_reports import (
     build_collector_health,
     build_orderbook_audit,
     build_weather_coverage,
+    check_collector_freshness,
 )
 from eventmm.pipelines.weather_collector import WeatherCollectorPipeline
 from eventmm.reports.calibration_report import write_calibration_report
 from eventmm.reports.model_report import write_model_report
 from eventmm.research.baselines import add_weather_baseline_features
+from eventmm.research.forecast_revisions import add_forecast_revision_features
+from eventmm.research.partitions import (
+    build_monotonicity_violations,
+    build_partition_features,
+    simulate_partition_basket,
+)
 from eventmm.signals.edge import add_edge_columns
 
 app = typer.Typer(help="Kalshi event market-making research tools.")
@@ -66,11 +75,15 @@ models_app = typer.Typer(help="Part 3 fair-value modeling commands.")
 backtest_app = typer.Typer(help="Event-driven backtesting commands.")
 collector_app = typer.Typer(help="Live collector observability commands.")
 orderbooks_app = typer.Typer(help="Order-book audit commands.")
+research_app = typer.Typer(
+    help="Structural and market microstructure research commands."
+)
 app.add_typer(datasets_app, name="datasets")
 app.add_typer(models_app, name="models")
 app.add_typer(backtest_app, name="backtest")
 app.add_typer(collector_app, name="collector")
 app.add_typer(orderbooks_app, name="orderbooks")
+app.add_typer(research_app, name="research")
 console = Console()
 
 WEATHER_LOCATIONS: dict[str, dict[str, Any]] = {
@@ -118,6 +131,10 @@ def _read_parquet_dir(path: Path) -> pl.DataFrame | None:
     if not files:
         return None
     return pl.concat([pl.read_parquet(file) for file in files], how="diagonal_relaxed")
+
+
+def _parquet_paths(path: Path) -> list[Path]:
+    return sorted(path.glob("*.parquet")) if path.exists() else []
 
 
 def _registry() -> DatasetRegistry:
@@ -251,6 +268,10 @@ async def _bootstrap_market_features(contracts: pl.DataFrame) -> pl.DataFrame:
                 "market_microprice": None,
                 "market_spread": None,
                 "market_depth_imbalance": None,
+                "yes_bid_depth_1": None,
+                "yes_ask_depth_1": None,
+                "no_bid_depth_1": None,
+                "no_ask_depth_1": None,
             }
             try:
                 raw = await client.get_orderbook(ticker)
@@ -272,6 +293,10 @@ async def _bootstrap_market_features(contracts: pl.DataFrame) -> pl.DataFrame:
                         "market_microprice": features.yes_microprice,
                         "market_spread": features.yes_spread,
                         "market_depth_imbalance": features.imbalance_1,
+                        "yes_bid_depth_1": features.yes_bid_depth_1,
+                        "yes_ask_depth_1": features.yes_ask_depth_1,
+                        "no_bid_depth_1": features.yes_ask_depth_1,
+                        "no_ask_depth_1": features.yes_bid_depth_1,
                     }
                 )
             except Exception as exc:
@@ -885,6 +910,17 @@ def build_dataset(
         labels=labels,
         observations=observations,
         require_labels=require_labels,
+        source_paths={
+            "contract_specs": _parquet_paths(
+                base / "contracts" / "weather_contract_specs"
+            ),
+            "book_features": _parquet_paths(base / "book_features"),
+            "nws_forecasts": _parquet_paths(base / "external" / "nws_hourly_forecasts"),
+            "noaa_observations": _parquet_paths(
+                base / "external" / "noaa_daily_observations"
+            ),
+            "labels": _parquet_paths(base / "labels" / "market_outcomes"),
+        },
     )
     console.print(f"Wrote dataset to {out_path}")
     if require_labels:
@@ -943,6 +979,15 @@ def add_baseline_features(dataset: str = typer.Option(...)) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "part-0.parquet"
     out.write_parquet(out_path)
+    write_dataset_manifest(
+        out_dir,
+        dataset_name=f"{dataset}_features",
+        source_paths={"base_dataset": _parquet_paths(in_dir)},
+        build_config={
+            "derived_by": "add_weather_baseline_features",
+            "base_dataset": dataset,
+        },
+    )
     console.print(f"Wrote baseline feature dataset to {out_path}")
 
 
@@ -1028,6 +1073,19 @@ def dataset_feature_coverage(
     console.print(set_table)
 
 
+@datasets_app.command("verify-manifest")
+def verify_manifest(dataset: str = typer.Option(...)) -> None:
+    path = _model_dataset_dir() / dataset / "manifest.json"
+    if not path.exists():
+        raise typer.BadParameter(f"No manifest found for {dataset}.")
+    errors = verify_dataset_manifest(path)
+    if errors:
+        for error in errors:
+            console.print(error)
+        raise typer.Exit(1)
+    console.print(f"Manifest verified: {path}")
+
+
 @collector_app.command("health")
 def collector_health(
     series: str = "KXHIGHNY",
@@ -1061,6 +1119,19 @@ def collector_weather_coverage(
             display = "" if value is None else str(value)
         table.add_row(key, display)
     console.print(table)
+
+
+@collector_app.command("freshness")
+def collector_freshness(
+    series: str = "KXHIGHNY",
+    max_age_minutes: float = 30.0,
+) -> None:
+    freshness = check_collector_freshness(
+        settings.data_dir, series=series, max_age_minutes=max_age_minutes
+    )
+    console.print(freshness)
+    if not freshness.healthy:
+        raise typer.Exit(1)
 
 
 @orderbooks_app.command("audit")
@@ -1229,6 +1300,25 @@ def train_logistic(
     console.print(f"Wrote model registry entry to {registry_path}")
 
 
+@models_app.command("walk-forward")
+def walk_forward_modeling(
+    dataset: str = "weather_nyc_main_v1_features",
+    feature_set: str = "weather_market",
+    min_train_dates: int = 3,
+) -> None:
+    df = pl.read_parquet(str(_model_dataset_dir() / dataset / "*.parquet"))
+    results = evaluate_walk_forward(
+        df,
+        feature_cols=FEATURE_SETS[feature_set],
+        min_train_dates=min_train_dates,
+    )
+    out_path = Path("artifacts") / "metrics" / f"{dataset}_walk_forward.parquet"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    results.write_parquet(out_path)
+    console.print(results)
+    console.print(f"Wrote walk-forward metrics to {out_path}")
+
+
 @backtest_app.command("inspect-data")
 def backtest_inspect_data(dataset: str = "weather_nyc_main_v1_features") -> None:
     df = load_backtest_dataset(dataset, data_dir=_model_dataset_dir())
@@ -1248,3 +1338,89 @@ def backtest_run(
     cfg = yaml.safe_load(config.read_text())
     out_dir = run_threshold_backtest(cfg, data_dir=_model_dataset_dir())
     console.print(f"Wrote backtest artifacts to {out_dir}")
+
+
+@research_app.command("partitions")
+def research_partitions(
+    dataset: str = "weather_nyc_main_v1_features",
+    bucket_every: str = "1m",
+) -> None:
+    df = pl.read_parquet(str(_model_dataset_dir() / dataset / "*.parquet"))
+    features = build_partition_features(df, bucket_every=bucket_every)
+    violations = build_monotonicity_violations(df, bucket_every=bucket_every)
+    out_dir = Path("artifacts") / "research"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    features.write_parquet(out_dir / f"{dataset}_partition_features.parquet")
+    violations.write_parquet(out_dir / f"{dataset}_monotonicity_violations.parquet")
+    console.print(features)
+    console.print(f"Monotonicity violations: {len(violations)}")
+
+
+@research_app.command("simulate-baskets")
+def research_simulate_baskets(
+    dataset: str = "weather_nyc_main_v1_features",
+    bucket_every: str = "1m",
+    mode: str = "all_or_none",
+    quantity: int = 1,
+) -> None:
+    mode = mode.replace("-", "_")
+    if mode not in {"all_or_none", "partial"}:
+        raise typer.BadParameter("Mode must be all-or-none or partial.")
+    df = pl.read_parquet(str(_model_dataset_dir() / dataset / "*.parquet"))
+    bucketed = (
+        df.with_columns(
+            pl.col("as_of_ts")
+            .cast(pl.Datetime)
+            .dt.truncate(bucket_every)
+            .alias("quote_bucket")
+        )
+        .sort("as_of_ts")
+        .unique(["event_ticker", "quote_bucket", "market_ticker"], keep="last")
+    )
+    rows = []
+    fill_rows: list[dict[str, Any]] = []
+    for _, group in bucketed.group_by(
+        ["event_ticker", "quote_bucket"], maintain_order=True
+    ):
+        if group["market_ticker"].n_unique() != 6:
+            continue
+        for side in ("yes", "no"):
+            result = simulate_partition_basket(
+                group, side=side, mode=mode, quantity=quantity
+            )
+            row = asdict(result)
+            row.pop("fills")
+            rows.append(row)
+            fill_rows.extend(
+                {
+                    "event_ticker": result.event_ticker,
+                    "quote_bucket": result.quote_bucket,
+                    "basket_side": side,
+                    "simulation_mode": mode,
+                    **fill.to_row(),
+                }
+                for fill in result.fills
+            )
+    output = pl.DataFrame(rows)
+    out_path = (
+        Path("artifacts") / "research" / f"{dataset}_basket_simulation_{mode}.parquet"
+    )
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    output.write_parquet(out_path)
+    pl.DataFrame(fill_rows).write_parquet(
+        out_path.with_name(f"{out_path.stem}_fills.parquet")
+    )
+    console.print(output)
+
+
+@research_app.command("forecast-revisions")
+def research_forecast_revisions() -> None:
+    source_dir = settings.data_dir / "processed" / "external" / "nws_hourly_forecasts"
+    forecasts = _read_parquet_dir(source_dir)
+    if forecasts is None:
+        raise typer.BadParameter("No NWS forecast history found.")
+    revisions = add_forecast_revision_features(forecasts)
+    out_path = Path("artifacts") / "research" / "nws_forecast_revisions.parquet"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    revisions.write_parquet(out_path)
+    console.print(f"Wrote {len(revisions)} forecast revision rows to {out_path}")

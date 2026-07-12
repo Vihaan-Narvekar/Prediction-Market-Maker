@@ -149,6 +149,52 @@ class WeatherCoverage:
         return self.__dict__.copy()
 
 
+@dataclass(frozen=True)
+class CollectorFreshness:
+    healthy: bool
+    max_age_minutes: float
+    orderbook_age_minutes: float | None
+    forecast_age_minutes: float | None
+    message: str
+
+
+def _age_minutes(value: str | None, now: datetime) -> float | None:
+    if value is None:
+        return None
+    timestamp = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    if timestamp.tzinfo is None:
+        timestamp = timestamp.replace(tzinfo=timezone.utc)
+    return max(0.0, (now - timestamp).total_seconds() / 60)
+
+
+def check_collector_freshness(
+    data_dir: Path,
+    *,
+    series: str,
+    max_age_minutes: float = 30.0,
+    now: datetime | None = None,
+) -> CollectorFreshness:
+    now = now or datetime.now(timezone.utc)
+    health = build_collector_health(data_dir, series=series, since="all")
+    orderbook_age = _age_minutes(health.latest_orderbook_as_of, now)
+    forecast_age = _age_minutes(health.latest_forecast_as_of, now)
+    ages = [age for age in (orderbook_age, forecast_age) if age is not None]
+    healthy = len(ages) == 2 and all(age <= max_age_minutes for age in ages)
+    message = (
+        "collector fresh"
+        if healthy
+        else "collector stale or missing data: "
+        f"orderbook_age={orderbook_age}, forecast_age={forecast_age}, limit={max_age_minutes} minutes"
+    )
+    return CollectorFreshness(
+        healthy=healthy,
+        max_age_minutes=max_age_minutes,
+        orderbook_age_minutes=orderbook_age,
+        forecast_age_minutes=forecast_age,
+        message=message,
+    )
+
+
 def _book_state(book_features: pl.DataFrame) -> pl.DataFrame:
     if len(book_features) == 0:
         return book_features
