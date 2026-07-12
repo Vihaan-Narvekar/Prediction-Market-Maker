@@ -139,10 +139,19 @@ uv run eventmm research partitions --dataset weather_nyc_main_v1_features
 uv run eventmm research simulate-baskets --dataset weather_nyc_main_v1_features --mode all-or-none
 uv run eventmm research simulate-baskets --dataset weather_nyc_main_v1_features --mode partial
 uv run eventmm research forecast-revisions
+uv run eventmm research forecast-event-study --dataset weather_nyc_main_v1_features
 ```
 
 Basket simulation writes both basket summaries and fill-level Parquet files.
 Every fill records `depth_source=known` or `depth_source=assumed`.
+
+The forecast event study derives contract-level settlement probabilities from
+the historical NWS daily-high error distribution. Estimates use only earlier
+contract dates, prefer matching lead-time and revision-direction buckets when
+there are at least 10 samples, and apply Jeffreys smoothing. Its executable-edge
+columns are `forecast_model_yes_edge_after_fees` and
+`forecast_model_no_edge_after_fees`; `forecast_event_indicator` remains a
+direction diagnostic and is never used as a trading probability.
 
 Train the current logistic prototype and run the simplified threshold backtest:
 
@@ -182,7 +191,7 @@ JUPYTER_CONFIG_DIR=/tmp/eventmm-jupyter uv run jupyter nbconvert --execute --to 
 
 Pytest measures branch coverage for `src/eventmm` and fails below **40%**.
 It prints missing lines to the terminal and writes `coverage.xml`. The initial
-whole-package baseline is 47.72%; the threshold prevents a material regression
+whole-package baseline is 49.03%; the threshold prevents a material regression
 while remaining attainable for a personal research project whose CLI and
 external-service orchestration are not yet integration-tested. Raise it as
 collector, modeling, backtest, and CLI integration tests are added.
@@ -265,7 +274,7 @@ The next commit should be one cohesive quality-baseline commit containing:
 - Notebook syntax/execution fixes.
 - Source typing fixes and narrowly scoped third-party mypy configuration.
 - Runtime/development dependency separation and the refreshed lockfile.
-- Test coverage reporting with the 40% minimum and documented 47.72% baseline.
+- Test coverage reporting with the 40% minimum and documented 49.03% baseline.
 - GitHub Actions CI, `.dockerignore`, and runtime-only Docker installation.
 - This expanded project documentation and the related research reports.
 

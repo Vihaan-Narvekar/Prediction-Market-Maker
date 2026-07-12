@@ -62,6 +62,10 @@ from eventmm.reports.calibration_report import write_calibration_report
 from eventmm.reports.model_report import write_model_report
 from eventmm.research.baselines import add_weather_baseline_features
 from eventmm.research.forecast_revisions import add_forecast_revision_features
+from eventmm.research.forecast_event_study import (
+    build_forecast_revision_event_study,
+    summarize_forecast_revision_event_study,
+)
 from eventmm.research.partitions import (
     build_monotonicity_violations,
     build_partition_features,
@@ -1424,3 +1428,41 @@ def research_forecast_revisions() -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     revisions.write_parquet(out_path)
     console.print(f"Wrote {len(revisions)} forecast revision rows to {out_path}")
+
+
+@research_app.command("forecast-event-study")
+def research_forecast_event_study(
+    dataset: str = "weather_nyc_main_v1_features",
+    max_pre_age_minutes: float = 30,
+    max_horizon_lag_minutes: float = 20,
+) -> None:
+    quotes = pl.read_parquet(str(_model_dataset_dir() / dataset / "*.parquet"))
+    forecasts = _read_parquet_dir(
+        settings.data_dir / "processed" / "external" / "nws_hourly_forecasts"
+    )
+    if forecasts is None:
+        raise typer.BadParameter("No NWS forecast history found.")
+    observations = _read_parquet_dir(
+        settings.data_dir / "processed" / "external" / "noaa_daily_observations"
+    )
+    if observations is None:
+        raise typer.BadParameter(
+            "No NOAA observations found; calibrated forecast probabilities require "
+            "realized forecast errors."
+        )
+    detail = build_forecast_revision_event_study(
+        quotes,
+        forecasts,
+        observations,
+        max_pre_age_minutes=max_pre_age_minutes,
+        max_horizon_lag_minutes=max_horizon_lag_minutes,
+    )
+    summary = summarize_forecast_revision_event_study(detail)
+    out_dir = Path("artifacts") / "research"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    detail_path = out_dir / f"{dataset}_forecast_event_study.parquet"
+    summary_path = out_dir / f"{dataset}_forecast_event_study_summary.csv"
+    detail.write_parquet(detail_path)
+    summary.write_csv(summary_path)
+    console.print(summary)
+    console.print(f"Wrote {len(detail)} event-study rows to {detail_path}")

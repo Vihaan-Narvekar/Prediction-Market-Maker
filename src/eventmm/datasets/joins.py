@@ -70,7 +70,9 @@ def asof_join_market_weather(
         out["observation_station_id"] = None
         rows.append(out)
 
-    result = pl.DataFrame(rows) if rows else joined
+    # Inspect every row: live snapshots can introduce a float after a long run of
+    # integer-like values, beyond Polars' default schema-inference window.
+    result = pl.DataFrame(rows, infer_schema_length=None) if rows else joined
     if observations is not None and len(observations) > 0:
         obs = _aggregate_daily_observations(observations)
         result = result.drop(
