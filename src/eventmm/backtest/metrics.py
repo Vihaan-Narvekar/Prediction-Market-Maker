@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from eventmm.backtest.events import FillEvent, OrderEvent
 from eventmm.backtest.portfolio import Portfolio
 
@@ -6,14 +8,18 @@ def compute_backtest_metrics(
     orders: list[OrderEvent],
     fills: list[FillEvent],
     portfolio: Portfolio,
-) -> dict[str, float | int]:
-    total_fees = sum(fill.fee_cents for fill in fills)
+) -> dict[str, float | int | Decimal]:
+    total_fees = sum((fill.fee_cents for fill in fills), Decimal("0"))
     gross_pnl = sum(
-        position.realized_pnl_cents + position.fees_paid_cents
-        for position in portfolio.positions.values()
+        (
+            position.realized_pnl_cents + position.fees_paid_cents
+            for position in portfolio.positions.values()
+        ),
+        Decimal("0"),
     )
     net_pnl = sum(
-        position.realized_pnl_cents for position in portfolio.positions.values()
+        (position.realized_pnl_cents for position in portfolio.positions.values()),
+        Decimal("0"),
     )
     return {
         "number_of_markets": len(portfolio.positions),
@@ -22,13 +28,13 @@ def compute_backtest_metrics(
         "fill_rate": len(fills) / len(orders) if orders else 0.0,
         "average_fill_price": sum(fill.price_cents for fill in fills) / len(fills)
         if fills
-        else 0.0,
+        else Decimal("0"),
         "total_fees": total_fees,
         "gross_pnl": gross_pnl,
         "net_pnl": net_pnl,
         "pnl_per_contract": net_pnl / sum(fill.quantity for fill in fills)
         if fills
-        else 0.0,
+        else Decimal("0"),
         "win_rate": sum(
             1
             for position in portfolio.positions.values()

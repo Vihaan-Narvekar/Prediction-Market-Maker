@@ -4,7 +4,8 @@ from typing import Any
 
 import httpx
 import structlog
-from tenacity import retry, stop_after_attempt, wait_exponential
+from eventmm.kalshi.http_budget import request_with_budget
+from eventmm.kalshi.rate_limiter import TokenBucket
 
 logger = structlog.get_logger()
 
@@ -17,6 +18,8 @@ class ExternalAPIClient:
         headers: dict[str, str] | None = None,
         transport: httpx.AsyncBaseTransport | None = None,
     ):
+        self.rate_limiter = TokenBucket(1, 1)
+        self.response_hook = None
         self.base_url = base_url.rstrip("/")
         self.client = httpx.AsyncClient(
             timeout=timeout,
@@ -24,9 +27,6 @@ class ExternalAPIClient:
             transport=transport,
         )
 
-    @retry(
-        stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=8)
-    )
     async def get(
         self,
         path: str,
@@ -34,12 +34,13 @@ class ExternalAPIClient:
     ) -> dict[str, Any]:
         url = f"{self.base_url}{path}"
         logger.info("external_request_started", url=url, params=params)
-        response = await self.client.get(url, params=params)
-        response.raise_for_status()
-        logger.info(
-            "external_request_completed",
-            url=url,
-            status_code=response.status_code,
+        response = await request_with_budget(
+            self.client,
+            "GET",
+            url,
+            limiter=self.rate_limiter,
+            response_hook=self.response_hook,
+            params=params,
         )
         return response.json()
 

@@ -1,3 +1,4 @@
+from uuid import uuid4
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -46,7 +47,8 @@ def append_forecast_version(base_dir: Path, row: dict[str, Any]) -> Path:
     else:
         slug = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     out_path = (
-        out_dir / f"source={row['source']}-location={row['location']}-{slug}.parquet"
+        out_dir
+        / f"source={row['source']}-location={row['location']}-{slug}-{uuid4().hex}.parquet"
     )
     pl.DataFrame([row]).write_parquet(out_path)
     return out_path

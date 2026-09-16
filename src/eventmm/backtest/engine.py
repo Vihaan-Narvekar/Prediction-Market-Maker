@@ -13,6 +13,7 @@ from eventmm.backtest.portfolio import Portfolio
 from eventmm.backtest.reports import write_backtest_report
 from eventmm.backtest.risk import ExposureLimits, signed_yes_equivalent
 from eventmm.backtest.strategy import ThresholdSignalTaker
+from eventmm.utils.decimal import decimal_json, to_decimal
 
 
 def run_threshold_backtest(
@@ -24,13 +25,13 @@ def run_threshold_backtest(
 
     strategy_cfg = config.get("strategy", {})
     strategy = ThresholdSignalTaker(
-        min_edge_cents=float(strategy_cfg.get("min_edge_cents", 5)),
-        quantity=int(strategy_cfg.get("quantity", 1)),
+        min_edge_cents=to_decimal(strategy_cfg.get("min_edge_cents", 5)),
+        quantity=to_decimal(strategy_cfg.get("quantity", 1)),
     )
     fee_cfg = config.get("fees", {})
     fee_model = FeeModel(
         fixed_fee_cents_per_contract=(
-            float(fee_cfg["fixed_fee_cents_per_contract"])
+            to_decimal(fee_cfg["fixed_fee_cents_per_contract"])
             if fee_cfg.get("mode") == "fixed_per_contract"
             else None
         ),
@@ -38,8 +39,8 @@ def run_threshold_backtest(
     )
     risk_cfg = config.get("risk", {})
     limits = ExposureLimits(
-        max_market_position=int(risk_cfg.get("max_market_position", 10)),
-        max_event_exposure=int(risk_cfg.get("max_event_exposure", 30)),
+        max_market_position=to_decimal(risk_cfg.get("max_market_position", 10)),
+        max_event_exposure=to_decimal(risk_cfg.get("max_event_exposure", 30)),
     )
     fill_sim = FillSimulator(fee_model)
     portfolio = Portfolio()
@@ -104,7 +105,9 @@ def run_threshold_backtest(
     metrics = compute_backtest_metrics(orders, fills, portfolio)
     out_dir = Path("artifacts") / "backtests" / run_name
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "config.yaml").write_text(json.dumps(config, indent=2, sort_keys=True))
+    (out_dir / "config.yaml").write_text(
+        json.dumps(config, indent=2, sort_keys=True, default=decimal_json)
+    )
     pl.DataFrame([asdict(order) for order in orders]).write_parquet(
         out_dir / "orders.parquet"
     )
@@ -114,6 +117,8 @@ def run_threshold_backtest(
     pl.DataFrame(portfolio.positions_rows()).write_parquet(
         out_dir / "positions.parquet"
     )
-    (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2, sort_keys=True))
+    (out_dir / "metrics.json").write_text(
+        json.dumps(metrics, indent=2, sort_keys=True, default=decimal_json)
+    )
     write_backtest_report(out_dir / "report.md", metrics)
     return out_dir

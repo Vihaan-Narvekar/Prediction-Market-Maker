@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
+from decimal import Decimal
 from typing import Literal
 
 import polars as pl
@@ -9,6 +10,7 @@ import polars as pl
 from eventmm.backtest.events import FillEvent, MarketDataEvent, OrderEvent
 from eventmm.backtest.fees import FeeModel
 from eventmm.backtest.fills import FillSimulator
+from eventmm.utils.decimal import to_decimal
 
 
 def _leg_type(row: dict) -> str:
@@ -21,9 +23,10 @@ def build_partition_features(
     df: pl.DataFrame,
     *,
     bucket_every: str = "1m",
-    quantity: int = 1,
+    quantity: Decimal = Decimal("1"),
     fee_model: FeeModel | None = None,
 ) -> pl.DataFrame:
+    quantity = to_decimal(quantity)
     fee_model = fee_model or FeeModel()
     required = {
         "event_ticker",
@@ -63,12 +66,12 @@ def build_partition_features(
         spreads = [row.get("market_spread") for row in legs]
         executable_yes = complete and all(value is not None for value in yes_asks)
         executable_no = complete and all(value is not None for value in no_asks)
-        yes_bid_total = sum(float(v) for v in yes_bids if v is not None)
-        yes_ask_total = sum(float(v) for v in yes_asks if v is not None)
-        no_ask_total = sum(float(v) for v in no_asks if v is not None)
+        yes_bid_total = sum(to_decimal(v) for v in yes_bids if v is not None)
+        yes_ask_total = sum(to_decimal(v) for v in yes_asks if v is not None)
+        no_ask_total = sum(to_decimal(v) for v in no_asks if v is not None)
         yes_fee = (
             sum(
-                fee_model.estimate_fee_cents(float(price), quantity, "taker")
+                fee_model.estimate_fee_cents(to_decimal(price), quantity, "taker")
                 for price in yes_asks
                 if price is not None
             )
@@ -77,7 +80,7 @@ def build_partition_features(
         )
         no_fee = (
             sum(
-                fee_model.estimate_fee_cents(float(price), quantity, "taker")
+                fee_model.estimate_fee_cents(to_decimal(price), quantity, "taker")
                 for price in no_asks
                 if price is not None
             )
@@ -179,10 +182,10 @@ class BasketSimulation:
     requested_legs: int
     filled_legs: int
     complete: bool
-    total_cost_cents: float
-    total_fees_cents: float
-    guaranteed_payoff_cents: float
-    guaranteed_pnl_cents: float | None
+    total_cost_cents: Decimal
+    total_fees_cents: Decimal
+    guaranteed_payoff_cents: Decimal
+    guaranteed_pnl_cents: Decimal | None
     known_depth_fills: int
     assumed_depth_fills: int
     fills: list[FillEvent]
@@ -193,11 +196,12 @@ def simulate_partition_basket(
     *,
     side: Literal["yes", "no"],
     mode: str = "all_or_none",
-    quantity: int = 1,
+    quantity: Decimal = Decimal("1"),
     fee_model: FeeModel | None = None,
 ) -> BasketSimulation:
     if side not in {"yes", "no"} or mode not in {"all_or_none", "partial"}:
         raise ValueError("Unsupported basket side or mode.")
+    quantity = to_decimal(quantity)
     fee_model = fee_model or FeeModel()
     simulator = FillSimulator(fee_model)
     fills: list[FillEvent] = []
@@ -224,7 +228,7 @@ def simulate_partition_basket(
             side=side,
             action="buy",
             order_type="marketable_limit",
-            price_cents=float(ask),
+            price_cents=to_decimal(ask),
             quantity=quantity,
         )
         fill = simulator.simulate_taker_fill(order, event)
@@ -235,9 +239,9 @@ def simulate_partition_basket(
     ):
         fills = []
     complete = len(fills) == 6 and all(fill.quantity == quantity for fill in fills)
-    cost = sum(fill.price_cents * fill.quantity for fill in fills)
-    fees = sum(fill.fee_cents for fill in fills)
-    payoff = (100 if side == "yes" else 500) * quantity if complete else 0
+    cost = sum((fill.price_cents * fill.quantity for fill in fills), Decimal("0"))
+    fees = sum((fill.fee_cents for fill in fills), Decimal("0"))
+    payoff = (100 if side == "yes" else 500) * quantity if complete else Decimal("0")
     return BasketSimulation(
         event_ticker=str(group["event_ticker"][0]),
         quote_bucket=group["quote_bucket"][0],

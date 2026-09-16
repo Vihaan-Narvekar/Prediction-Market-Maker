@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 
 from pydantic import BaseModel
 
@@ -13,9 +14,9 @@ class DatasetRow(BaseModel):
     expiration_time: datetime | None = None
     settlement_time: datetime | None = None
 
-    market_mid: float | None = None
-    market_microprice: float | None = None
-    market_spread: float | None = None
+    market_mid: Decimal | None = None
+    market_microprice: Decimal | None = None
+    market_spread: Decimal | None = None
     market_depth_imbalance: float | None = None
 
     contract_type: str

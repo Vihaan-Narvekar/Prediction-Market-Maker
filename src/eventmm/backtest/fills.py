@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Literal
 
 from eventmm.backtest.events import FillEvent, MarketDataEvent, OrderEvent
@@ -27,7 +28,7 @@ class FillSimulator:
 
     def _available_depth(
         self, order: OrderEvent, market: MarketDataEvent
-    ) -> int | None:
+    ) -> Decimal | None:
         if order.side == "yes" and order.action == "buy":
             return market.yes_ask_depth
         if order.side == "yes" and order.action == "sell":
@@ -38,7 +39,7 @@ class FillSimulator:
 
     def _executable_price(
         self, order: OrderEvent, market: MarketDataEvent
-    ) -> float | None:
+    ) -> Decimal | None:
         if order.side == "yes" and order.action == "buy":
             return market.best_yes_ask
         if order.side == "yes" and order.action == "sell":
@@ -60,9 +61,9 @@ class FillSimulator:
     def _fill(
         self,
         order: OrderEvent,
-        price_cents: float,
+        price_cents: Decimal,
         liquidity: Literal["taker", "maker", "simulated"],
-        available_quantity: int | None = None,
+        available_quantity: Decimal | None = None,
     ) -> FillEvent:
         quantity = (
             min(order.quantity, available_quantity)

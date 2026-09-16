@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal
 from math import copysign
 from typing import Any
 
@@ -13,7 +14,7 @@ from eventmm.research.forecast_error_model import (
     build_forecast_error_samples,
 )
 from eventmm.research.forecast_revisions import add_forecast_revision_features
-
+from eventmm.utils.decimal import to_decimal
 
 HORIZONS_MINUTES: dict[str, float] = {
     "first_post": 0.0,
@@ -73,7 +74,7 @@ def _quote_at_or_after(
 
 def _fee_adjusted_edges(
     row: dict[str, Any], probability: float | None, fee_model: FeeModel
-) -> tuple[float | None, float | None]:
+) -> tuple[Decimal | None, Decimal | None]:
     if probability is None:
         return None, None
     yes_ask = row.get("best_yes_ask")
@@ -81,16 +82,16 @@ def _fee_adjusted_edges(
     yes_edge = (
         None
         if yes_ask is None
-        else probability * 100
-        - float(yes_ask)
-        - fee_model.estimate_fee_cents(float(yes_ask), 1, "taker")
+        else to_decimal(probability) * 100
+        - to_decimal(yes_ask)
+        - fee_model.estimate_fee_cents(to_decimal(yes_ask), 1, "taker")
     )
     no_edge = (
         None
         if no_ask is None
-        else (1 - probability) * 100
-        - float(no_ask)
-        - fee_model.estimate_fee_cents(float(no_ask), 1, "taker")
+        else (1 - to_decimal(probability)) * 100
+        - to_decimal(no_ask)
+        - fee_model.estimate_fee_cents(to_decimal(no_ask), 1, "taker")
     )
     return yes_edge, no_edge
 

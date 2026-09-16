@@ -1,16 +1,17 @@
 from dataclasses import dataclass, field
+from decimal import Decimal
 
 from eventmm.backtest.events import FillEvent
 
 
 @dataclass
 class Position:
-    yes_position: int = 0
-    no_position: int = 0
-    yes_cash_flow_cents: float = 0.0
-    no_cash_flow_cents: float = 0.0
-    fees_paid_cents: float = 0.0
-    realized_pnl_cents: float = 0.0
+    yes_position: Decimal = Decimal("0")
+    no_position: Decimal = Decimal("0")
+    yes_cash_flow_cents: Decimal = Decimal("0")
+    no_cash_flow_cents: Decimal = Decimal("0")
+    fees_paid_cents: Decimal = Decimal("0")
+    realized_pnl_cents: Decimal = Decimal("0")
 
 
 @dataclass
@@ -29,10 +30,10 @@ class Portfolio:
             pos.no_cash_flow_cents += cash_flow if fill.action == "buy" else -cash_flow
         pos.fees_paid_cents += fill.fee_cents
 
-    def settle(self, market_ticker: str, label: int) -> float:
+    def settle(self, market_ticker: str, label: int) -> Decimal:
         pos = self.positions.get(market_ticker)
         if pos is None:
-            return 0.0
+            return Decimal("0")
         yes_settlement = 100 * pos.yes_position * label
         no_settlement = 100 * pos.no_position * (1 - label)
         pnl = (

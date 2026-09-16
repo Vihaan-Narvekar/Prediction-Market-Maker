@@ -1,6 +1,8 @@
 from dataclasses import dataclass
+from decimal import Decimal
 
 from eventmm.backtest.events import MarketDataEvent, OrderEvent, SignalEvent
+from eventmm.utils.decimal import to_decimal
 
 
 class Strategy:
@@ -10,8 +12,12 @@ class Strategy:
 
 @dataclass
 class ThresholdSignalTaker(Strategy):
-    min_edge_cents: float = 5.0
-    quantity: int = 1
+    min_edge_cents: Decimal = Decimal("5")
+    quantity: Decimal = Decimal("1")
+
+    def __post_init__(self) -> None:
+        self.min_edge_cents = to_decimal(self.min_edge_cents)
+        self.quantity = to_decimal(self.quantity)
 
     def on_market_data(self, event: MarketDataEvent, row: dict) -> list[OrderEvent]:
         p_yes = row.get("p_model")
@@ -20,15 +26,21 @@ class ThresholdSignalTaker(Strategy):
         if p_yes is None:
             p_yes = row.get("forecast_above_threshold")
         if p_yes is None:
-            p_yes = (row.get("market_mid") or 50) / 100
-        fair_value = 100 * float(p_yes)
+            p_yes = (
+                to_decimal(
+                    row["market_mid"] if row.get("market_mid") is not None else 50
+                )
+                / 100
+            )
+        fair_value = 100 * to_decimal(p_yes)
 
         signal = SignalEvent(
             ts=event.ts,
             market_ticker=event.market_ticker,
             p_yes=float(p_yes),
             fair_value_cents=fair_value,
-            edge_to_mid=fair_value - (event.market_mid or fair_value),
+            edge_to_mid=fair_value
+            - (event.market_mid if event.market_mid is not None else fair_value),
             buy_yes_edge=fair_value - event.best_yes_ask
             if event.best_yes_ask is not None
             else None,

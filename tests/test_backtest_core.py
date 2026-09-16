@@ -1,3 +1,4 @@
+from decimal import Decimal
 from datetime import datetime
 
 from eventmm.backtest.events import MarketDataEvent, OrderEvent
@@ -35,7 +36,7 @@ def test_taker_buy_yes_fills_at_ask():
 
     assert fill is not None
     assert fill.price_cents == 44
-    assert fill.fee_cents == 0.1
+    assert fill.fee_cents == Decimal("0.1")
 
 
 def test_yes_buy_settlement_pnl_win_and_loss():

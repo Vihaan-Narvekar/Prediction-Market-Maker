@@ -4,8 +4,8 @@ from typing import Any
 from eventmm.utils.decimal import dollars_to_cents, quantity_to_decimal
 
 
-def parse_book_levels(levels: list[list[Any]]) -> dict[int, Decimal]:
-    parsed: dict[int, Decimal] = {}
+def parse_book_levels(levels: list[list[Any]]) -> dict[Decimal, Decimal]:
+    parsed: dict[Decimal, Decimal] = {}
 
     for level in levels:
         if len(level) != 2:
@@ -26,10 +26,10 @@ def parse_book_levels(levels: list[list[Any]]) -> dict[int, Decimal]:
 
 def parse_rest_orderbook(
     raw: dict[str, Any],
-) -> tuple[dict[int, Decimal], dict[int, Decimal]]:
-    orderbook = raw.get("orderbook_fp") or raw.get("orderbook") or raw
+) -> tuple[dict[Decimal, Decimal], dict[Decimal, Decimal]]:
+    orderbook = raw.get("orderbook_fp", raw.get("orderbook", raw))
 
-    yes_levels = orderbook.get("yes_dollars") or orderbook.get("yes_dollars_fp") or []
-    no_levels = orderbook.get("no_dollars") or orderbook.get("no_dollars_fp") or []
+    yes_levels = orderbook.get("yes_dollars_fp", orderbook.get("yes_dollars", [])) or []
+    no_levels = orderbook.get("no_dollars_fp", orderbook.get("no_dollars", [])) or []
 
     return parse_book_levels(yes_levels), parse_book_levels(no_levels)

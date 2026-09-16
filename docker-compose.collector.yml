@@ -1,0 +1,26 @@
+# Start with: docker compose -f docker-compose.collector.yml up -d --build
+# Optional NOAA: add --noaa to the command and supply NOAA_CDO_TOKEN.
+services:
+  collector:
+    build: .
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 45s
+    env_file: [.env]
+    volumes:
+      - ./data:/app/data
+      - ./secrets:/app/secrets:ro
+    environment:
+      KALSHI_PRIVATE_KEY_PATH: /app/secrets/kalshi_private_key.pem
+    command: ["uv", "run", "python", "-m", "eventmm.collector_cli", "supervise", "--series", "KXHIGHNY", "--location", "NYC"]
+    healthcheck:
+      test: ["CMD", "/app/.venv/bin/python", "-m", "eventmm.collector_cli", "health", "--worker", "markets", "--max-age", "180"]
+      interval: 30s
+      timeout: 10s
+      start_period: 180s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

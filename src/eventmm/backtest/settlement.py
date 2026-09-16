@@ -1,6 +1,9 @@
-def yes_settlement_value_cents(label: int) -> int:
-    return 100 if label == 1 else 0
+from decimal import Decimal
 
 
-def no_settlement_value_cents(label: int) -> int:
-    return 100 if label == 0 else 0
+def yes_settlement_value_cents(label: int) -> Decimal:
+    return Decimal("100") if label == 1 else Decimal("0")
+
+
+def no_settlement_value_cents(label: int) -> Decimal:
+    return Decimal("100") if label == 0 else Decimal("0")

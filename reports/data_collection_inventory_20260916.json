@@ -1,0 +1,7119 @@
+{
+  "audit_utc": "2026-09-16T02:05:13.160920+00:00",
+  "scope": "local workspace only; read-only inventory",
+  "tables": {
+    "data/processed/book_features": {
+      "files": 379,
+      "bytes": 2039328,
+      "rows": 4926,
+      "schema_variants": 3,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone='UTC')",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "String",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "yes_bid_depth_1": "Float64",
+        "yes_ask_depth_1": "Float64",
+        "no_bid_depth_1": "Float64",
+        "no_ask_depth_1": "Float64"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-23 23:19:53.353801+00:00",
+          "max": "2026-07-12 02:25:32.546836+00:00",
+          "unique": 4926
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 474,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 74,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4852
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26APR23-T68/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26MAY27-B81.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26JUN02-B77.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26JUN13-B91.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26MAY16-T76/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26MAY05-T77/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26MAY22-B63.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26JUN02-B73.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26MAY16-B76.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26MAY13-B68.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26JUN09-T85/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2452,
+        "market_microprice": 2452,
+        "market_spread": 2452,
+        "best_yes_bid": 2692,
+        "best_no_bid": 4269,
+        "yes_bid_depth_1": 36,
+        "yes_ask_depth_1": 66,
+        "no_bid_depth_1": 66,
+        "no_ask_depth_1": 36,
+        "feature_error": 74
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-23",
+          "rows": 414,
+          "markets": 414
+        },
+        {
+          "day": "2026-06-24",
+          "rows": 24,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-12",
+          "rows": 72,
+          "markets": 12
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1680.0,
+        "max": 100209,
+        "over_15min": 288,
+        "over_1hour": 96
+      }
+    },
+    "data/processed/contracts/weather_contract_specs": {
+      "files": 169,
+      "bytes": 2281526,
+      "rows": 69966,
+      "schema_variants": 3,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "String",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "String",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time": "String",
+        "expiration_time": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null"
+      },
+      "ranges": {
+        "contract_date": {
+          "min": "2026-04-17",
+          "max": "2026-07-12",
+          "unique": 88
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 522,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26MAY10-B76.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN12-T90",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN16-B81.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY19-B95.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY22-B69.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY31-B72.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY13-B72.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY23-B58.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY13-B66.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY14-B65.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN01-B70.5",
+              "len": 169
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY16-B76.5",
+              "len": 169
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 87,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN07",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY27",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY25",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY21",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY17",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY06",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY28",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY05",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN19",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN17",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN11",
+              "len": 1014
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY22",
+              "len": 1014
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 69552
+            },
+            {
+              "location": null,
+              "len": 414
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 67938
+            },
+            {
+              "status": "active",
+              "len": 2028
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 2,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 69552
+            },
+            {
+              "parse_status": "failed",
+              "len": 414
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "series_ticker": 0
+      },
+      "by_contract_date": [
+        {
+          "contract_date": null,
+          "rows": 414,
+          "markets": 414
+        },
+        {
+          "contract_date": "2026-04-17",
+          "rows": 6,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-18",
+          "rows": 6,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-19",
+          "rows": 6,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-20",
+          "rows": 6,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-21",
+          "rows": 6,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-22",
+          "rows": 162,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-23",
+          "rows": 702,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-24",
+          "rows": 960,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-25",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-26",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-27",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-28",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-29",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-04-30",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-01",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-02",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-03",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-04",
+          "rows": 972,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-05",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-06",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-07",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-08",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-09",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-10",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-11",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-12",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-13",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-14",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-15",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-16",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-17",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-18",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-19",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-20",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-21",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-22",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-23",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-24",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-25",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-26",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-27",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-28",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-29",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-30",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-05-31",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-01",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-02",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-03",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-04",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-05",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-06",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-07",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-08",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-09",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-10",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-11",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-12",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-13",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-14",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-15",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-16",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-17",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-18",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-19",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-20",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-21",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-22",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-23",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-24",
+          "rows": 1008,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-25",
+          "rows": 1002,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 1002,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 1002,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 1002,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 1002,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 846,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 306,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-02",
+          "rows": 48,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-03",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-04",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-05",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-06",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-07",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-08",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-09",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-10",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-11",
+          "rows": 36,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-12",
+          "rows": 36,
+          "markets": 6
+        }
+      ]
+    },
+    "data/processed/datasets/weather_nyc_live_v1": {
+      "files": 1,
+      "bytes": 57007,
+      "rows": 2544,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "String",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-23 23:19:55.027917",
+          "max": "2026-06-28 20:03:52.334535",
+          "unique": 2544
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-23 23:11:47.655360",
+          "max": "2026-06-28 19:58:45.218207",
+          "unique": 215
+        },
+        "contract_date": {
+          "min": "2026-06-23",
+          "max": "2026-06-29",
+          "unique": 7
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 42,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B80.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B76.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-T76",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B78.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-T83",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B82.5",
+              "len": 95
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 7,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 318
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 132
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN24",
+              "len": 18
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN23",
+              "len": 18
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 2544
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 2094
+            },
+            {
+              "status": "active",
+              "len": 450
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 2544
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 2544
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 2094
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 450
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 2094
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 450
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 2544
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 1,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 2543
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26JUN24-B82.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 1387,
+        "market_microprice": 1387,
+        "market_spread": 1387,
+        "best_yes_bid": 1539,
+        "best_no_bid": 2377,
+        "label": 2094,
+        "forecast_temperature": 2544,
+        "observed_temperature": 36,
+        "feature_error": 1,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-23",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-24",
+          "rows": 24,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 336,
+          "markets": 18
+        }
+      ],
+      "gaps_seconds": {
+        "median": 307.0,
+        "p95": 3092.0,
+        "max": 51936,
+        "over_15min": 258,
+        "over_1hour": 78
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-23",
+          "rows": 18,
+          "market_mid_rows": 0,
+          "label_rows": 18,
+          "observed_temperature_rows": 18,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-24",
+          "rows": 18,
+          "market_mid_rows": 9,
+          "label_rows": 18,
+          "observed_temperature_rows": 18,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "label_rows": 924,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "label_rows": 570,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 318,
+          "market_mid_rows": 251,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 132,
+          "market_mid_rows": 132,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": false,
+      "resolved_markets": 30,
+      "unresolved_markets": 12,
+      "resolved_contract_dates": 5,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 2508
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00094789",
+          "len": 18
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 18
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 2544.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.5525150681341725
+        },
+        {
+          "statistic": "std",
+          "value": 3.366051550400103
+        },
+        {
+          "statistic": "min",
+          "value": 0.0016666666666666666
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "data/processed/datasets/weather_nyc_live_v1_features": {
+      "files": 1,
+      "bytes": 72314,
+      "rows": 2544,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "String",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null",
+        "forecast_minus_threshold": "Float64",
+        "abs_forecast_distance_to_threshold": "Float64",
+        "forecast_above_threshold": "Int8",
+        "time_to_expiry_hours": "Float64",
+        "microprice_minus_mid": "Float64"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-23 23:19:55.027917",
+          "max": "2026-06-28 20:03:52.334535",
+          "unique": 2544
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-23 23:11:47.655360",
+          "max": "2026-06-28 19:58:45.218207",
+          "unique": 215
+        },
+        "contract_date": {
+          "min": "2026-06-23",
+          "max": "2026-06-29",
+          "unique": 7
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 42,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-T76",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-T83",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B78.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B76.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B80.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B82.5",
+              "len": 95
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 7,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 318
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 132
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN24",
+              "len": 18
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN23",
+              "len": 18
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 2544
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 2094
+            },
+            {
+              "status": "active",
+              "len": 450
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 2544
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 2544
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 2094
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 450
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 2094
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 450
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 2544
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 1,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 2543
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26JUN24-B82.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 1387,
+        "market_microprice": 1387,
+        "market_spread": 1387,
+        "best_yes_bid": 1539,
+        "best_no_bid": 2377,
+        "label": 2094,
+        "forecast_temperature": 2544,
+        "observed_temperature": 36,
+        "feature_error": 1,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-23",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-24",
+          "rows": 24,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 336,
+          "markets": 18
+        }
+      ],
+      "gaps_seconds": {
+        "median": 307.0,
+        "p95": 3092.0,
+        "max": 51936,
+        "over_15min": 258,
+        "over_1hour": 78
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-23",
+          "rows": 18,
+          "market_mid_rows": 0,
+          "label_rows": 18,
+          "observed_temperature_rows": 18,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-24",
+          "rows": 18,
+          "market_mid_rows": 9,
+          "label_rows": 18,
+          "observed_temperature_rows": 18,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "label_rows": 924,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "label_rows": 570,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 318,
+          "market_mid_rows": 251,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 132,
+          "market_mid_rows": 132,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": false,
+      "resolved_markets": 30,
+      "unresolved_markets": 12,
+      "resolved_contract_dates": 5,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 2508
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00094789",
+          "len": 18
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 18
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 2544.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.5525150681341725
+        },
+        {
+          "statistic": "std",
+          "value": 3.366051550400103
+        },
+        {
+          "statistic": "min",
+          "value": 0.0016666666666666666
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "data/processed/datasets/weather_nyc_main_v1": {
+      "files": 1,
+      "bytes": 81540,
+      "rows": 4410,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "Null",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-25 20:52:42.331178",
+          "max": "2026-07-02 02:59:31.632291",
+          "unique": 4410
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-24 00:13:21.821367",
+          "max": "2026-06-30 23:09:22.838548",
+          "unique": 370
+        },
+        "contract_date": {
+          "min": "2026-06-25",
+          "max": "2026-07-01",
+          "unique": 7
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 42,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 7,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 822
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN30",
+              "len": 798
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 468
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL01",
+              "len": 264
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 4410
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 4146
+            },
+            {
+              "status": "active",
+              "len": 264
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 4410
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 4410
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 4146
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 264
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 4146
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 264
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 4410
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 0,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4410
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2409,
+        "market_microprice": 2409,
+        "market_spread": 2409,
+        "best_yes_bid": 2644,
+        "best_no_bid": 4175,
+        "label": 4146,
+        "forecast_temperature": 4410,
+        "observed_temperature": 2526,
+        "feature_error": 0,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 6,
+          "markets": 6
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1566.0,
+        "max": 100209,
+        "over_15min": 264,
+        "over_1hour": 96
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 564,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "label_rows": 924,
+          "observed_temperature_rows": 924,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "label_rows": 570,
+          "observed_temperature_rows": 570,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 468,
+          "market_mid_rows": 284,
+          "label_rows": 468,
+          "observed_temperature_rows": 468,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 822,
+          "market_mid_rows": 341,
+          "label_rows": 822,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 798,
+          "market_mid_rows": 537,
+          "label_rows": 798,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 264,
+          "market_mid_rows": 252,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": false,
+      "resolved_markets": 36,
+      "unresolved_markets": 6,
+      "resolved_contract_dates": 6,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 2526
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 1884
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 4410.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.49406330309901736
+        },
+        {
+          "statistic": "std",
+          "value": 3.074440267536558
+        },
+        {
+          "statistic": "min",
+          "value": 0.0025
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "data/processed/datasets/weather_nyc_main_v1_features": {
+      "files": 1,
+      "bytes": 105482,
+      "rows": 4410,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "Null",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null",
+        "forecast_minus_threshold": "Float64",
+        "abs_forecast_distance_to_threshold": "Float64",
+        "forecast_above_threshold": "Int8",
+        "forecast_event_indicator": "Int8",
+        "time_to_expiry_hours": "Float64",
+        "microprice_minus_mid": "Float64"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-25 20:52:42.331178",
+          "max": "2026-07-02 02:59:31.632291",
+          "unique": 4410
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-24 00:13:21.821367",
+          "max": "2026-06-30 23:09:22.838548",
+          "unique": 370
+        },
+        "contract_date": {
+          "min": "2026-06-25",
+          "max": "2026-07-01",
+          "unique": 7
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 42,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 7,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 822
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN30",
+              "len": 798
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 468
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL01",
+              "len": 264
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 4410
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 4146
+            },
+            {
+              "status": "active",
+              "len": 264
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 4410
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 4410
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 4146
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 264
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 4146
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 264
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 4410
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 0,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4410
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2409,
+        "market_microprice": 2409,
+        "market_spread": 2409,
+        "best_yes_bid": 2644,
+        "best_no_bid": 4175,
+        "label": 4146,
+        "forecast_temperature": 4410,
+        "observed_temperature": 2526,
+        "feature_error": 0,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 6,
+          "markets": 6
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1566.0,
+        "max": 100209,
+        "over_15min": 264,
+        "over_1hour": 96
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 564,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "label_rows": 924,
+          "observed_temperature_rows": 924,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "label_rows": 570,
+          "observed_temperature_rows": 570,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 468,
+          "market_mid_rows": 284,
+          "label_rows": 468,
+          "observed_temperature_rows": 468,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 822,
+          "market_mid_rows": 341,
+          "label_rows": 822,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 798,
+          "market_mid_rows": 537,
+          "label_rows": 798,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 264,
+          "market_mid_rows": 252,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": true,
+      "manifest_errors": [],
+      "resolved_markets": 36,
+      "unresolved_markets": 6,
+      "resolved_contract_dates": 6,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 2526
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 1884
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 4410.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.49406330309901736
+        },
+        {
+          "statistic": "std",
+          "value": 3.074440267536558
+        },
+        {
+          "statistic": "min",
+          "value": 0.0025
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "data/processed/datasets/weather_nyc_revision_v2": {
+      "files": 1,
+      "bytes": 84509,
+      "rows": 4476,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "Null",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "yes_bid_depth_1": "Float64",
+        "yes_ask_depth_1": "Float64",
+        "no_bid_depth_1": "Float64",
+        "no_ask_depth_1": "Float64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-25 20:52:42.331178",
+          "max": "2026-07-12 02:20:24.402095",
+          "unique": 4476
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-24 00:13:21.821367",
+          "max": "2026-07-12 02:15:14.236865",
+          "unique": 375
+        },
+        "contract_date": {
+          "min": "2026-06-25",
+          "max": "2026-07-12",
+          "unique": 10
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 60,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 10,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 822
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN30",
+              "len": 798
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 468
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL01",
+              "len": 264
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL12",
+              "len": 30
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL11",
+              "len": 30
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL02",
+              "len": 6
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 4476
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 4146
+            },
+            {
+              "status": "active",
+              "len": 330
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 4476
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 4476
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 4416
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 60
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 4416
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 60
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 4476
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 0,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4476
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2438,
+        "market_microprice": 2438,
+        "market_spread": 2438,
+        "best_yes_bid": 2678,
+        "best_no_bid": 4236,
+        "yes_bid_depth_1": 30,
+        "yes_ask_depth_1": 55,
+        "no_bid_depth_1": 55,
+        "no_ask_depth_1": 30,
+        "label": 4416,
+        "forecast_temperature": 4464,
+        "observed_temperature": 2526,
+        "feature_error": 0,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-12",
+          "rows": 60,
+          "markets": 12
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1566.0,
+        "max": 100209,
+        "over_15min": 276,
+        "over_1hour": 96
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 564,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 924,
+          "observed_temperature_rows": 924,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 570,
+          "observed_temperature_rows": 570,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 468,
+          "market_mid_rows": 284,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 468,
+          "observed_temperature_rows": 468,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 822,
+          "market_mid_rows": 341,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 822,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 798,
+          "market_mid_rows": 537,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 798,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 264,
+          "market_mid_rows": 252,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 264,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-02",
+          "rows": 6,
+          "market_mid_rows": 4,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 6,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-11",
+          "rows": 30,
+          "market_mid_rows": 0,
+          "yes_bid_depth_1_rows": 5,
+          "yes_ask_depth_1_rows": 25,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-12",
+          "rows": 30,
+          "market_mid_rows": 25,
+          "yes_bid_depth_1_rows": 25,
+          "yes_ask_depth_1_rows": 30,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": true,
+      "manifest_errors": [
+        "hash mismatch: data/processed/external/noaa_daily_observations/location=NYC-2026-07-04-2026-07-11.parquet"
+      ],
+      "resolved_markets": 48,
+      "unresolved_markets": 12,
+      "resolved_contract_dates": 8,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 2526
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 1950
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 4464.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.5271685210075666
+        },
+        {
+          "statistic": "std",
+          "value": 3.2160558887413315
+        },
+        {
+          "statistic": "min",
+          "value": 0.0025
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "data/processed/datasets/weather_nyc_revision_v2_features": {
+      "files": 1,
+      "bytes": 108714,
+      "rows": 4476,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "Null",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "yes_bid_depth_1": "Float64",
+        "yes_ask_depth_1": "Float64",
+        "no_bid_depth_1": "Float64",
+        "no_ask_depth_1": "Float64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null",
+        "forecast_minus_threshold": "Float64",
+        "abs_forecast_distance_to_threshold": "Float64",
+        "forecast_above_threshold": "Int8",
+        "forecast_event_indicator": "Int8",
+        "time_to_expiry_hours": "Float64",
+        "microprice_minus_mid": "Float64"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-25 20:52:42.331178",
+          "max": "2026-07-12 02:20:24.402095",
+          "unique": 4476
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-24 00:13:21.821367",
+          "max": "2026-07-12 02:15:14.236865",
+          "unique": 375
+        },
+        "contract_date": {
+          "min": "2026-06-25",
+          "max": "2026-07-12",
+          "unique": 10
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 60,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 10,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 822
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN30",
+              "len": 798
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 468
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL01",
+              "len": 264
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL11",
+              "len": 30
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL12",
+              "len": 30
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL02",
+              "len": 6
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 4476
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 4146
+            },
+            {
+              "status": "active",
+              "len": 330
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 4476
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 4476
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 4416
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 60
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 4416
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 60
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 4476
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 0,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4476
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2438,
+        "market_microprice": 2438,
+        "market_spread": 2438,
+        "best_yes_bid": 2678,
+        "best_no_bid": 4236,
+        "yes_bid_depth_1": 30,
+        "yes_ask_depth_1": 55,
+        "no_bid_depth_1": 55,
+        "no_ask_depth_1": 30,
+        "label": 4416,
+        "forecast_temperature": 4464,
+        "observed_temperature": 2526,
+        "feature_error": 0,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-12",
+          "rows": 60,
+          "markets": 12
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1566.0,
+        "max": 100209,
+        "over_15min": 276,
+        "over_1hour": 96
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 564,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 924,
+          "observed_temperature_rows": 924,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 570,
+          "observed_temperature_rows": 570,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 468,
+          "market_mid_rows": 284,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 468,
+          "observed_temperature_rows": 468,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 822,
+          "market_mid_rows": 341,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 822,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 798,
+          "market_mid_rows": 537,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 798,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 264,
+          "market_mid_rows": 252,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 264,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-02",
+          "rows": 6,
+          "market_mid_rows": 4,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 6,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-11",
+          "rows": 30,
+          "market_mid_rows": 0,
+          "yes_bid_depth_1_rows": 5,
+          "yes_ask_depth_1_rows": 25,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-12",
+          "rows": 30,
+          "market_mid_rows": 25,
+          "yes_bid_depth_1_rows": 25,
+          "yes_ask_depth_1_rows": 30,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": true,
+      "manifest_errors": [],
+      "resolved_markets": 48,
+      "unresolved_markets": 12,
+      "resolved_contract_dates": 8,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 2526
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 1950
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 4464.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.5271685210075666
+        },
+        {
+          "statistic": "std",
+          "value": 3.2160558887413315
+        },
+        {
+          "statistic": "min",
+          "value": 0.0025
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "data/processed/external/forecast_versions": {
+      "files": 381,
+      "bytes": 1947748,
+      "rows": 381,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "source": "String",
+        "location": "String",
+        "collection_ts": "Datetime(time_unit='us', time_zone='UTC')",
+        "forecast_generated_at": "String",
+        "forecast_updated_at": "String",
+        "forecast_valid_start": "String",
+        "forecast_valid_end": "String",
+        "raw_response_path": "String",
+        "hash": "String"
+      },
+      "ranges": {
+        "collection_ts": {
+          "min": "2026-06-23 23:44:27.412270+00:00",
+          "max": "2026-07-12 02:25:32.676399+00:00",
+          "unique": 381
+        },
+        "forecast_generated_at": {
+          "min": "2026-06-23T22:50:18+00:00",
+          "max": "2026-07-12T02:23:56+00:00",
+          "unique": 56
+        },
+        "forecast_updated_at": {
+          "min": "2026-06-23T18:20:08+00:00",
+          "max": "2026-07-12T02:02:50+00:00",
+          "unique": 18
+        }
+      },
+      "counts": {
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 381
+            }
+          ]
+        }
+      },
+      "nonnull": {}
+    },
+    "data/processed/external/noaa_daily_observations": {
+      "files": 11,
+      "bytes": 33393,
+      "rows": 201,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "location": "String",
+        "station_id": "String",
+        "date": "String",
+        "datatype": "String",
+        "value": "Float64",
+        "unit": "String",
+        "source": "String",
+        "received_ts": "Datetime(time_unit='us', time_zone='UTC')"
+      },
+      "ranges": {
+        "received_ts": {
+          "min": "2026-06-23 23:27:56.852948+00:00",
+          "max": "2026-07-12 02:25:33.359527+00:00",
+          "unique": 172
+        },
+        "date": {
+          "min": "2026-06-01",
+          "max": "2026-07-08",
+          "unique": 33
+        }
+      },
+      "counts": {
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 201
+            }
+          ]
+        },
+        "station_id": {
+          "unique": 3,
+          "top": [
+            {
+              "station_id": "USW00094789",
+              "len": 67
+            },
+            {
+              "station_id": "USW00094728",
+              "len": 67
+            },
+            {
+              "station_id": "USW00014732",
+              "len": 67
+            }
+          ]
+        }
+      },
+      "nonnull": {}
+    },
+    "data/processed/external/nws_hourly_forecasts": {
+      "files": 383,
+      "bytes": 2847917,
+      "rows": 59748,
+      "schema_variants": 2,
+      "read_errors": [],
+      "schema": {
+        "location": "String",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone='UTC')",
+        "forecast_start_ts": "String",
+        "forecast_end_ts": "String",
+        "forecast_date": "String",
+        "forecast_temperature": "Int64",
+        "temperature_unit": "String",
+        "short_forecast": "String",
+        "source": "String",
+        "raw_path": "String",
+        "collection_ts": "Datetime(time_unit='us', time_zone='UTC')",
+        "forecast_valid_ts": "String",
+        "forecast_version_path": "String"
+      },
+      "ranges": {
+        "forecast_issue_ts": {
+          "min": "2026-06-23 23:00:37.702452+00:00",
+          "max": "2026-07-12 02:25:32.676399+00:00",
+          "unique": 589
+        },
+        "collection_ts": {
+          "min": "2026-06-23 23:44:27.412270+00:00",
+          "max": "2026-07-12 02:25:32.676399+00:00",
+          "unique": 382
+        },
+        "forecast_date": {
+          "min": "2026-06-23",
+          "max": "2026-07-18",
+          "unique": 24
+        }
+      },
+      "counts": {
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 59748
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "forecast_temperature": 59748
+      }
+    },
+    "data/processed/labels/market_outcomes": {
+      "files": 377,
+      "bytes": 3645253,
+      "rows": 156078,
+      "schema_variants": 2,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "expiration_time": "String",
+        "settlement_time": "Null",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "created_ts": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null"
+      },
+      "ranges": {
+        "created_ts": {
+          "min": "2026-06-23T23:18:54.691774+00:00",
+          "max": "2026-07-12T02:25:33.681151+00:00",
+          "unique": 156078
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 522,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26MAY24-T60",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY19-B95.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN16-B81.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY17-B83.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY08-B66.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN16-T82",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN18-B83.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY25-B72.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN17-B80.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26MAY26-B77.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN16-B79.5",
+              "len": 377
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN10-B75.5",
+              "len": 377
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 87,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN12",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY24",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY29",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY16",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN14",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY18",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY27",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN05",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY12",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN04",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN15",
+              "len": 2262
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN06",
+              "len": 2262
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 156078
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 3,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 151554
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 4500
+            },
+            {
+              "label_quality": "missing_result",
+              "len": 24
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 151152
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 4512
+            },
+            {
+              "label_confidence": null,
+              "len": 414
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 156078
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "label": 151554,
+        "series_ticker": 0
+      }
+    },
+    "data/processed/market_universes/kxhighny_weather_universe": {
+      "files": 381,
+      "bytes": 3038501,
+      "rows": 156516,
+      "schema_variants": 2,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "title": "String",
+        "status": "String",
+        "close_time": "String",
+        "expiration_time": "String",
+        "volume": "Null",
+        "open_interest": "Null"
+      },
+      "ranges": {},
+      "counts": {
+        "market_ticker": {
+          "unique": 522,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN24-T89",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN23-T78",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN24-B84.5",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN24-B82.5",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN24-B88.5",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN23-T85",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN23-B78.5",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN23-B82.5",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN24-T82",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN23-B84.5",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN24-B86.5",
+              "len": 380
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN23-B80.5",
+              "len": 380
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 87,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN23",
+              "len": 2280
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN24",
+              "len": 2280
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN09",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY15",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY28",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY19",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY26",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY21",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26MAY12",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN13",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN18",
+              "len": 2268
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN10",
+              "len": 2268
+            }
+          ]
+        },
+        "status": {
+          "unique": 3,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 151956
+            },
+            {
+              "status": "active",
+              "len": 4536
+            },
+            {
+              "status": "closed",
+              "len": 24
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "series_ticker": 0
+      }
+    }
+  },
+  "datasets": {
+    "weather_nyc_live_v1": {
+      "files": 1,
+      "bytes": 57007,
+      "rows": 2544,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "String",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-23 23:19:55.027917",
+          "max": "2026-06-28 20:03:52.334535",
+          "unique": 2544
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-23 23:11:47.655360",
+          "max": "2026-06-28 19:58:45.218207",
+          "unique": 215
+        },
+        "contract_date": {
+          "min": "2026-06-23",
+          "max": "2026-06-29",
+          "unique": 7
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 42,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B80.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B76.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-T76",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B78.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-T83",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B82.5",
+              "len": 95
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 7,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 318
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 132
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN24",
+              "len": 18
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN23",
+              "len": 18
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 2544
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 2094
+            },
+            {
+              "status": "active",
+              "len": 450
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 2544
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 2544
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 2094
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 450
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 2094
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 450
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 2544
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 1,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 2543
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26JUN24-B82.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 1387,
+        "market_microprice": 1387,
+        "market_spread": 1387,
+        "best_yes_bid": 1539,
+        "best_no_bid": 2377,
+        "label": 2094,
+        "forecast_temperature": 2544,
+        "observed_temperature": 36,
+        "feature_error": 1,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-23",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-24",
+          "rows": 24,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 336,
+          "markets": 18
+        }
+      ],
+      "gaps_seconds": {
+        "median": 307.0,
+        "p95": 3092.0,
+        "max": 51936,
+        "over_15min": 258,
+        "over_1hour": 78
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-23",
+          "rows": 18,
+          "market_mid_rows": 0,
+          "label_rows": 18,
+          "observed_temperature_rows": 18,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-24",
+          "rows": 18,
+          "market_mid_rows": 9,
+          "label_rows": 18,
+          "observed_temperature_rows": 18,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "label_rows": 924,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "label_rows": 570,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 318,
+          "market_mid_rows": 251,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 132,
+          "market_mid_rows": 132,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": false,
+      "resolved_markets": 30,
+      "unresolved_markets": 12,
+      "resolved_contract_dates": 5,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 2508
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00094789",
+          "len": 18
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 18
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 2544.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.5525150681341725
+        },
+        {
+          "statistic": "std",
+          "value": 3.366051550400103
+        },
+        {
+          "statistic": "min",
+          "value": 0.0016666666666666666
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "weather_nyc_live_v1_features": {
+      "files": 1,
+      "bytes": 72314,
+      "rows": 2544,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "String",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null",
+        "forecast_minus_threshold": "Float64",
+        "abs_forecast_distance_to_threshold": "Float64",
+        "forecast_above_threshold": "Int8",
+        "time_to_expiry_hours": "Float64",
+        "microprice_minus_mid": "Float64"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-23 23:19:55.027917",
+          "max": "2026-06-28 20:03:52.334535",
+          "unique": 2544
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-23 23:11:47.655360",
+          "max": "2026-06-28 19:58:45.218207",
+          "unique": 215
+        },
+        "contract_date": {
+          "min": "2026-06-23",
+          "max": "2026-06-29",
+          "unique": 7
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 42,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-T76",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-T83",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B78.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B76.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B80.5",
+              "len": 95
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN27-B82.5",
+              "len": 95
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 7,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 318
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 132
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN24",
+              "len": 18
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN23",
+              "len": 18
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 2544
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 2094
+            },
+            {
+              "status": "active",
+              "len": 450
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 2544
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 2544
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 2094
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 450
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 2094
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 450
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 2544
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 1,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 2543
+            },
+            {
+              "feature_error": "Client error '429 Too Many Requests' for url 'https://external-api.kalshi.com/trade-api/v2/markets/KXHIGHNY-26JUN24-B82.5/orderbook'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+              "len": 1
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 1387,
+        "market_microprice": 1387,
+        "market_spread": 1387,
+        "best_yes_bid": 1539,
+        "best_no_bid": 2377,
+        "label": 2094,
+        "forecast_temperature": 2544,
+        "observed_temperature": 36,
+        "feature_error": 1,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-23",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-24",
+          "rows": 24,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 336,
+          "markets": 18
+        }
+      ],
+      "gaps_seconds": {
+        "median": 307.0,
+        "p95": 3092.0,
+        "max": 51936,
+        "over_15min": 258,
+        "over_1hour": 78
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-23",
+          "rows": 18,
+          "market_mid_rows": 0,
+          "label_rows": 18,
+          "observed_temperature_rows": 18,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-24",
+          "rows": 18,
+          "market_mid_rows": 9,
+          "label_rows": 18,
+          "observed_temperature_rows": 18,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "label_rows": 924,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "label_rows": 570,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 318,
+          "market_mid_rows": 251,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 132,
+          "market_mid_rows": 132,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": false,
+      "resolved_markets": 30,
+      "unresolved_markets": 12,
+      "resolved_contract_dates": 5,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 2508
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00094789",
+          "len": 18
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 18
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 2544.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.5525150681341725
+        },
+        {
+          "statistic": "std",
+          "value": 3.366051550400103
+        },
+        {
+          "statistic": "min",
+          "value": 0.0016666666666666666
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "weather_nyc_main_v1": {
+      "files": 1,
+      "bytes": 81540,
+      "rows": 4410,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "Null",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-25 20:52:42.331178",
+          "max": "2026-07-02 02:59:31.632291",
+          "unique": 4410
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-24 00:13:21.821367",
+          "max": "2026-06-30 23:09:22.838548",
+          "unique": 370
+        },
+        "contract_date": {
+          "min": "2026-06-25",
+          "max": "2026-07-01",
+          "unique": 7
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 42,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 7,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 822
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN30",
+              "len": 798
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 468
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL01",
+              "len": 264
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 4410
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 4146
+            },
+            {
+              "status": "active",
+              "len": 264
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 4410
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 4410
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 4146
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 264
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 4146
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 264
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 4410
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 0,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4410
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2409,
+        "market_microprice": 2409,
+        "market_spread": 2409,
+        "best_yes_bid": 2644,
+        "best_no_bid": 4175,
+        "label": 4146,
+        "forecast_temperature": 4410,
+        "observed_temperature": 2526,
+        "feature_error": 0,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 6,
+          "markets": 6
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1566.0,
+        "max": 100209,
+        "over_15min": 264,
+        "over_1hour": 96
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 564,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "label_rows": 924,
+          "observed_temperature_rows": 924,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "label_rows": 570,
+          "observed_temperature_rows": 570,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 468,
+          "market_mid_rows": 284,
+          "label_rows": 468,
+          "observed_temperature_rows": 468,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 822,
+          "market_mid_rows": 341,
+          "label_rows": 822,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 798,
+          "market_mid_rows": 537,
+          "label_rows": 798,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 264,
+          "market_mid_rows": 252,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": false,
+      "resolved_markets": 36,
+      "unresolved_markets": 6,
+      "resolved_contract_dates": 6,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 2526
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 1884
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 4410.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.49406330309901736
+        },
+        {
+          "statistic": "std",
+          "value": 3.074440267536558
+        },
+        {
+          "statistic": "min",
+          "value": 0.0025
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "weather_nyc_main_v1_features": {
+      "files": 1,
+      "bytes": 105482,
+      "rows": 4410,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "Null",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null",
+        "forecast_minus_threshold": "Float64",
+        "abs_forecast_distance_to_threshold": "Float64",
+        "forecast_above_threshold": "Int8",
+        "forecast_event_indicator": "Int8",
+        "time_to_expiry_hours": "Float64",
+        "microprice_minus_mid": "Float64"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-25 20:52:42.331178",
+          "max": "2026-07-02 02:59:31.632291",
+          "unique": 4410
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-24 00:13:21.821367",
+          "max": "2026-06-30 23:09:22.838548",
+          "unique": 370
+        },
+        "contract_date": {
+          "min": "2026-06-25",
+          "max": "2026-07-01",
+          "unique": 7
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 42,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 7,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 822
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN30",
+              "len": 798
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 468
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL01",
+              "len": 264
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 4410
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 4146
+            },
+            {
+              "status": "active",
+              "len": 264
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 4410
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 4410
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 4146
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 264
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 4146
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 264
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 4410
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 0,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4410
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2409,
+        "market_microprice": 2409,
+        "market_spread": 2409,
+        "best_yes_bid": 2644,
+        "best_no_bid": 4175,
+        "label": 4146,
+        "forecast_temperature": 4410,
+        "observed_temperature": 2526,
+        "feature_error": 0,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 6,
+          "markets": 6
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1566.0,
+        "max": 100209,
+        "over_15min": 264,
+        "over_1hour": 96
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 564,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "label_rows": 924,
+          "observed_temperature_rows": 924,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "label_rows": 570,
+          "observed_temperature_rows": 570,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 468,
+          "market_mid_rows": 284,
+          "label_rows": 468,
+          "observed_temperature_rows": 468,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 822,
+          "market_mid_rows": 341,
+          "label_rows": 822,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 798,
+          "market_mid_rows": 537,
+          "label_rows": 798,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 264,
+          "market_mid_rows": 252,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": true,
+      "manifest_errors": [],
+      "resolved_markets": 36,
+      "unresolved_markets": 6,
+      "resolved_contract_dates": 6,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 2526
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 1884
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 4410.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.49406330309901736
+        },
+        {
+          "statistic": "std",
+          "value": 3.074440267536558
+        },
+        {
+          "statistic": "min",
+          "value": 0.0025
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "weather_nyc_revision_v2": {
+      "files": 1,
+      "bytes": 84509,
+      "rows": 4476,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "Null",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "yes_bid_depth_1": "Float64",
+        "yes_ask_depth_1": "Float64",
+        "no_bid_depth_1": "Float64",
+        "no_ask_depth_1": "Float64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-25 20:52:42.331178",
+          "max": "2026-07-12 02:20:24.402095",
+          "unique": 4476
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-24 00:13:21.821367",
+          "max": "2026-07-12 02:15:14.236865",
+          "unique": 375
+        },
+        "contract_date": {
+          "min": "2026-06-25",
+          "max": "2026-07-12",
+          "unique": 10
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 60,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 10,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 822
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN30",
+              "len": 798
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 468
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL01",
+              "len": 264
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL12",
+              "len": 30
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL11",
+              "len": 30
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL02",
+              "len": 6
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 4476
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 4146
+            },
+            {
+              "status": "active",
+              "len": 330
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 4476
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 4476
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 4416
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 60
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 4416
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 60
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 4476
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 0,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4476
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2438,
+        "market_microprice": 2438,
+        "market_spread": 2438,
+        "best_yes_bid": 2678,
+        "best_no_bid": 4236,
+        "yes_bid_depth_1": 30,
+        "yes_ask_depth_1": 55,
+        "no_bid_depth_1": 55,
+        "no_ask_depth_1": 30,
+        "label": 4416,
+        "forecast_temperature": 4464,
+        "observed_temperature": 2526,
+        "feature_error": 0,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-12",
+          "rows": 60,
+          "markets": 12
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1566.0,
+        "max": 100209,
+        "over_15min": 276,
+        "over_1hour": 96
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 564,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 924,
+          "observed_temperature_rows": 924,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 570,
+          "observed_temperature_rows": 570,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 468,
+          "market_mid_rows": 284,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 468,
+          "observed_temperature_rows": 468,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 822,
+          "market_mid_rows": 341,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 822,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 798,
+          "market_mid_rows": 537,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 798,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 264,
+          "market_mid_rows": 252,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 264,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-02",
+          "rows": 6,
+          "market_mid_rows": 4,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 6,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-11",
+          "rows": 30,
+          "market_mid_rows": 0,
+          "yes_bid_depth_1_rows": 5,
+          "yes_ask_depth_1_rows": 25,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-12",
+          "rows": 30,
+          "market_mid_rows": 25,
+          "yes_bid_depth_1_rows": 25,
+          "yes_ask_depth_1_rows": 30,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": true,
+      "manifest_errors": [
+        "hash mismatch: data/processed/external/noaa_daily_observations/location=NYC-2026-07-04-2026-07-11.parquet"
+      ],
+      "resolved_markets": 48,
+      "unresolved_markets": 12,
+      "resolved_contract_dates": 8,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 2526
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 1950
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 4464.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.5271685210075666
+        },
+        {
+          "statistic": "std",
+          "value": 3.2160558887413315
+        },
+        {
+          "statistic": "min",
+          "value": 0.0025
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    },
+    "weather_nyc_revision_v2_features": {
+      "files": 1,
+      "bytes": 108714,
+      "rows": 4476,
+      "schema_variants": 1,
+      "read_errors": [],
+      "schema": {
+        "market_ticker": "String",
+        "as_of_ts": "Datetime(time_unit='us', time_zone=None)",
+        "close_time": "String",
+        "expiration_time": "String",
+        "market_mid": "Float64",
+        "market_microprice": "Float64",
+        "market_spread": "Int64",
+        "market_depth_imbalance": "Float64",
+        "feature_error": "Null",
+        "best_yes_bid": "Int64",
+        "best_yes_ask": "Int64",
+        "best_no_bid": "Int64",
+        "best_no_ask": "Int64",
+        "yes_bid_depth_1": "Float64",
+        "yes_ask_depth_1": "Float64",
+        "no_bid_depth_1": "Float64",
+        "no_ask_depth_1": "Float64",
+        "location": "String",
+        "metric": "String",
+        "contract_date": "Date",
+        "threshold_value": "Float64",
+        "threshold_unit": "String",
+        "comparison_operator": "String",
+        "parse_status": "String",
+        "parse_error": "Null",
+        "title": "String",
+        "status": "String",
+        "event_ticker": "String",
+        "series_ticker": "Null",
+        "close_time_right": "String",
+        "expiration_time_right": "String",
+        "volume": "Null",
+        "open_interest": "Null",
+        "threshold_upper_value": "Float64",
+        "parse_source": "String",
+        "contract_type": "String",
+        "settlement_station": "Null",
+        "forecast_issue_ts": "Datetime(time_unit='us', time_zone=None)",
+        "forecast_temperature": "Int64",
+        "external_source": "String",
+        "observation_station_id": "String",
+        "observed_temperature": "Float64",
+        "result": "String",
+        "label": "Int64",
+        "label_source": "String",
+        "label_quality": "String",
+        "label_confidence": "String",
+        "settlement_rule_match": "Null",
+        "observed_source": "Null",
+        "observed_station": "Null",
+        "observed_value": "Null",
+        "kalshi_result": "String",
+        "observed_result": "Null",
+        "label_disagreement_flag": "Null",
+        "settlement_time": "Null",
+        "forecast_minus_threshold": "Float64",
+        "abs_forecast_distance_to_threshold": "Float64",
+        "forecast_above_threshold": "Int8",
+        "forecast_event_indicator": "Int8",
+        "time_to_expiry_hours": "Float64",
+        "microprice_minus_mid": "Float64"
+      },
+      "ranges": {
+        "as_of_ts": {
+          "min": "2026-06-25 20:52:42.331178",
+          "max": "2026-07-12 02:20:24.402095",
+          "unique": 4476
+        },
+        "forecast_issue_ts": {
+          "min": "2026-06-24 00:13:21.821367",
+          "max": "2026-07-12 02:15:14.236865",
+          "unique": 375
+        },
+        "contract_date": {
+          "min": "2026-06-25",
+          "max": "2026-07-12",
+          "unique": 10
+        },
+        "settlement_time": {
+          "min": "None",
+          "max": "None",
+          "unique": 1
+        }
+      },
+      "counts": {
+        "market_ticker": {
+          "unique": 60,
+          "top": [
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B83.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B87.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T88",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B85.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-B81.5",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN26-T81",
+              "len": 154
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T79",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B85.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-T86",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B81.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B83.5",
+              "len": 137
+            },
+            {
+              "market_ticker": "KXHIGHNY-26JUN29-B79.5",
+              "len": 137
+            }
+          ]
+        },
+        "event_ticker": {
+          "unique": 10,
+          "top": [
+            {
+              "event_ticker": "KXHIGHNY-26JUN26",
+              "len": 924
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN29",
+              "len": 822
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN30",
+              "len": 798
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN27",
+              "len": 570
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN25",
+              "len": 564
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUN28",
+              "len": 468
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL01",
+              "len": 264
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL11",
+              "len": 30
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL12",
+              "len": 30
+            },
+            {
+              "event_ticker": "KXHIGHNY-26JUL02",
+              "len": 6
+            }
+          ]
+        },
+        "location": {
+          "unique": 1,
+          "top": [
+            {
+              "location": "NYC",
+              "len": 4476
+            }
+          ]
+        },
+        "status": {
+          "unique": 2,
+          "top": [
+            {
+              "status": "finalized",
+              "len": 4146
+            },
+            {
+              "status": "active",
+              "len": 330
+            }
+          ]
+        },
+        "parse_status": {
+          "unique": 1,
+          "top": [
+            {
+              "parse_status": "parsed",
+              "len": 4476
+            }
+          ]
+        },
+        "label_source": {
+          "unique": 1,
+          "top": [
+            {
+              "label_source": "kalshi_market",
+              "len": 4476
+            }
+          ]
+        },
+        "label_quality": {
+          "unique": 2,
+          "top": [
+            {
+              "label_quality": "from_kalshi_settlement",
+              "len": 4416
+            },
+            {
+              "label_quality": "unsettled",
+              "len": 60
+            }
+          ]
+        },
+        "label_confidence": {
+          "unique": 2,
+          "top": [
+            {
+              "label_confidence": "MEDIUM",
+              "len": 4416
+            },
+            {
+              "label_confidence": "LOW",
+              "len": 60
+            }
+          ]
+        },
+        "settlement_rule_match": {
+          "unique": 0,
+          "top": [
+            {
+              "settlement_rule_match": null,
+              "len": 4476
+            }
+          ]
+        },
+        "feature_error": {
+          "unique": 0,
+          "top": [
+            {
+              "feature_error": null,
+              "len": 4476
+            }
+          ]
+        }
+      },
+      "nonnull": {
+        "market_mid": 2438,
+        "market_microprice": 2438,
+        "market_spread": 2438,
+        "best_yes_bid": 2678,
+        "best_no_bid": 4236,
+        "yes_bid_depth_1": 30,
+        "yes_ask_depth_1": 55,
+        "no_bid_depth_1": 55,
+        "no_ask_depth_1": 30,
+        "label": 4416,
+        "forecast_temperature": 4464,
+        "observed_temperature": 2526,
+        "feature_error": 0,
+        "series_ticker": 0
+      },
+      "duplicate_market_timestamps": 0,
+      "rows_by_capture_day": [
+        {
+          "day": "2026-06-25",
+          "rows": 456,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-26",
+          "rows": 1068,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-27",
+          "rows": 648,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-28",
+          "rows": 636,
+          "markets": 18
+        },
+        {
+          "day": "2026-06-29",
+          "rows": 1080,
+          "markets": 12
+        },
+        {
+          "day": "2026-06-30",
+          "rows": 516,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-02",
+          "rows": 12,
+          "markets": 12
+        },
+        {
+          "day": "2026-07-12",
+          "rows": 60,
+          "markets": 12
+        }
+      ],
+      "gaps_seconds": {
+        "median": 308.0,
+        "p95": 1566.0,
+        "max": 100209,
+        "over_15min": 276,
+        "over_1hour": 96
+      },
+      "by_contract_date": [
+        {
+          "contract_date": "2026-06-25",
+          "rows": 564,
+          "market_mid_rows": 0,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 564,
+          "observed_temperature_rows": 564,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-26",
+          "rows": 924,
+          "market_mid_rows": 662,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 924,
+          "observed_temperature_rows": 924,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-27",
+          "rows": 570,
+          "market_mid_rows": 333,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 570,
+          "observed_temperature_rows": 570,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-28",
+          "rows": 468,
+          "market_mid_rows": 284,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 468,
+          "observed_temperature_rows": 468,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-29",
+          "rows": 822,
+          "market_mid_rows": 341,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 822,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-06-30",
+          "rows": 798,
+          "market_mid_rows": 537,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 798,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-01",
+          "rows": 264,
+          "market_mid_rows": 252,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 264,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-02",
+          "rows": 6,
+          "market_mid_rows": 4,
+          "yes_bid_depth_1_rows": 0,
+          "yes_ask_depth_1_rows": 0,
+          "label_rows": 6,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-11",
+          "rows": 30,
+          "market_mid_rows": 0,
+          "yes_bid_depth_1_rows": 5,
+          "yes_ask_depth_1_rows": 25,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        },
+        {
+          "contract_date": "2026-07-12",
+          "rows": 30,
+          "market_mid_rows": 25,
+          "yes_bid_depth_1_rows": 25,
+          "yes_ask_depth_1_rows": 30,
+          "label_rows": 0,
+          "observed_temperature_rows": 0,
+          "markets": 6
+        }
+      ],
+      "manifest_exists": true,
+      "manifest_errors": [],
+      "resolved_markets": 48,
+      "unresolved_markets": 12,
+      "resolved_contract_dates": 8,
+      "station_pairs": [
+        {
+          "settlement_station": null,
+          "observation_station_id": "USW00014732",
+          "len": 2526
+        },
+        {
+          "settlement_station": null,
+          "observation_station_id": null,
+          "len": 1950
+        }
+      ],
+      "forecast_age_hours": [
+        {
+          "statistic": "count",
+          "value": 4464.0
+        },
+        {
+          "statistic": "null_count",
+          "value": 0.0
+        },
+        {
+          "statistic": "mean",
+          "value": 0.5271685210075666
+        },
+        {
+          "statistic": "std",
+          "value": 3.2160558887413315
+        },
+        {
+          "statistic": "min",
+          "value": 0.0025
+        },
+        {
+          "statistic": "25%",
+          "value": 0.085
+        },
+        {
+          "statistic": "50%",
+          "value": 0.08527777777777777
+        },
+        {
+          "statistic": "75%",
+          "value": 0.08555555555555555
+        },
+        {
+          "statistic": "max",
+          "value": 44.655833333333334
+        }
+      ]
+    }
+  },
+  "book_quality": {
+    "two_sided": 2449,
+    "one_sided": 2063,
+    "empty_or_error": 414,
+    "positive_spread": 2452,
+    "locked": 0,
+    "crossed": 0,
+    "median_spread": 1.0
+  },
+  "book_file_runs": {
+    "collector": {
+      "files": 378,
+      "first": "collector-KXHIGHNY-20260624T001313Z.parquet",
+      "last": "collector-KXHIGHNY-20260712T022532Z.parquet"
+    },
+    "bootstrap": {
+      "files": 1,
+      "first": "bootstrap-20260623T232009Z.parquet",
+      "last": "bootstrap-20260623T232009Z.parquet"
+    }
+  },
+  "raw_inventory": {
+    "data/raw/external/noaa/location=NYC": {
+      "files": 1137,
+      "bytes": 1010007
+    },
+    "data/raw/external/nws/location=NYC": {
+      "files": 383,
+      "bytes": 53882510
+    }
+  },
+  "health_all": {
+    "raw_market_rows": 156516,
+    "raw_orderbook_rows": 4926,
+    "normalized_orderbook_rows": 4926,
+    "forecast_snapshot_rows": 59748,
+    "label_rows": 156078,
+    "unique_markets_seen": 522,
+    "unique_markets_with_nonempty_books": 72,
+    "unique_markets_with_midpoint": 49,
+    "two_sided_book_pct": 49.71579374746244,
+    "valid_midpoint_pct": 49.77669508729192,
+    "forecast_coverage_pct": 100.0,
+    "latest_market_as_of": "2026-07-13T04:59:00Z",
+    "latest_orderbook_as_of": "2026-07-12 02:25:32.546836+00:00",
+    "latest_forecast_as_of": "2026-07-12 02:25:32.676399+00:00",
+    "latest_label_as_of": "2026-07-12T02:25:33.681151+00:00"
+  },
+  "health_24h": {
+    "raw_market_rows": 156516,
+    "raw_orderbook_rows": 0,
+    "normalized_orderbook_rows": 0,
+    "forecast_snapshot_rows": 0,
+    "label_rows": 156078,
+    "unique_markets_seen": 522,
+    "unique_markets_with_nonempty_books": 0,
+    "unique_markets_with_midpoint": 0,
+    "two_sided_book_pct": 0.0,
+    "valid_midpoint_pct": 0.0,
+    "forecast_coverage_pct": 0.0,
+    "latest_market_as_of": "2026-07-13T04:59:00Z",
+    "latest_orderbook_as_of": null,
+    "latest_forecast_as_of": null,
+    "latest_label_as_of": "2026-07-12T02:25:33.681151+00:00"
+  },
+  "freshness": {
+    "healthy": false,
+    "max_age_minutes": 30.0,
+    "orderbook_age_minutes": 95019.6769014,
+    "forecast_age_minutes": 95019.67474201666,
+    "message": "collector stale or missing data: orderbook_age=95019.6769014, forecast_age=95019.67474201666, limit=30.0 minutes"
+  },
+  "model_usable": {
+    "weather_nyc_live_v1_features": {
+      "error": "Missing required columns: ['forecast_event_indicator']"
+    },
+    "weather_nyc_main_v1_features": {
+      "rows": 2157,
+      "dates": 5,
+      "markets": 30,
+      "walk_forward_folds_after_3_dates": 2
+    },
+    "weather_nyc_revision_v2_features": {
+      "rows": 2413,
+      "dates": 7,
+      "markets": 40,
+      "walk_forward_folds_after_3_dates": 4
+    }
+  },
+  "nws_raw_versions": {
+    "raw_files": 383,
+    "distinct_period_payloads": 56,
+    "distinct_source_update_timestamps": 18,
+    "update_times": {
+      "2026-06-23T18:20:08+00:00": 7,
+      "2026-06-25T18:19:29+00:00": 94,
+      "2026-06-26T12:09:43+00:00": 20,
+      "2026-06-26T18:46:21+00:00": 14,
+      "2026-06-27T00:13:46+00:00": 30,
+      "2026-06-27T18:33:44+00:00": 25,
+      "2026-06-28T00:21:59+00:00": 1,
+      "2026-06-28T01:50:59+00:00": 5,
+      "2026-06-28T11:41:19+00:00": 14,
+      "2026-06-28T18:46:07+00:00": 8,
+      "2026-06-28T19:22:29+00:00": 25,
+      "2026-06-29T13:54:33+00:00": 44,
+      "2026-06-29T18:56:31+00:00": 11,
+      "2026-06-29T19:53:25+00:00": 35,
+      "2026-06-30T18:25:41+00:00": 43,
+      "2026-07-02T00:17:03+00:00": 1,
+      "2026-07-11T22:10:35+00:00": 5,
+      "2026-07-12T02:02:50+00:00": 1
+    }
+  },
+  "forecast_target_audit": {
+    "matched_rows": 4464,
+    "different_from_daily_max": 3786,
+    "mean_shortfall_F": 3.086021505376344,
+    "max_shortfall_F": 11
+  },
+  "additional": {
+    "source_both_depth": 30,
+    "dataset_both_depth": 25,
+    "dataset_both_depth_labeled": 0,
+    "source_nonempty_markets": 72,
+    "source_midpoint_markets": 49,
+    "source_error_429": 74,
+    "source_schema_variants": 3,
+    "noaa_unique_station_days": 99,
+    "noaa_dates": [
+      "2026-06-01",
+      "2026-06-02",
+      "2026-06-03",
+      "2026-06-04",
+      "2026-06-05",
+      "2026-06-06",
+      "2026-06-07",
+      "2026-06-08",
+      "2026-06-09",
+      "2026-06-10",
+      "2026-06-11",
+      "2026-06-12",
+      "2026-06-13",
+      "2026-06-14",
+      "2026-06-15",
+      "2026-06-16",
+      "2026-06-17",
+      "2026-06-18",
+      "2026-06-19",
+      "2026-06-20",
+      "2026-06-21",
+      "2026-06-22",
+      "2026-06-23",
+      "2026-06-24",
+      "2026-06-25",
+      "2026-06-26",
+      "2026-06-27",
+      "2026-06-28",
+      "2026-07-04",
+      "2026-07-05",
+      "2026-07-06",
+      "2026-07-07",
+      "2026-07-08"
+    ],
+    "latest_unique_resolved_markets": 510,
+    "dataset_settlement_station_nonnull": 0,
+    "dataset_observed_station_nonnull": 0,
+    "source_days": [
+      {
+        "day": "2026-06-23",
+        "rows": 414,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-06-24",
+        "rows": 24,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-06-25",
+        "rows": 456,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-06-26",
+        "rows": 1068,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-06-27",
+        "rows": 648,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-06-28",
+        "rows": 636,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-06-29",
+        "rows": 1080,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-06-30",
+        "rows": 516,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-07-02",
+        "rows": 12,
+        "both_depth_rows": 0
+      },
+      {
+        "day": "2026-07-12",
+        "rows": 72,
+        "both_depth_rows": 30
+      }
+    ],
+    "longest_collection_gaps": [
+      {
+        "previous_run": "collector-KXHIGHNY-20260702T025931Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260712T014304Z.parquet",
+        "gap_hours": 238.7252482727778
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260624T001321Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260625T205243Z.parquet",
+        "gap_hours": 44.65573270611111
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260630T230922Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260702T025931Z.parquet",
+        "gap_hours": 27.835260081944448
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260629T233122Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260630T193230Z.parquet",
+        "gap_hours": 20.018310298611112
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260628T222139Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260629T155401Z.parquet",
+        "gap_hours": 17.538965754166668
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260627T051921Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260627T194457Z.parquet",
+        "gap_hours": 14.426321914444443
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260628T042703Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260628T153431Z.parquet",
+        "gap_hours": 11.124081423611111
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260626T044710Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260626T150032Z.parquet",
+        "gap_hours": 10.222415045833333
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260626T171935Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260626T213038Z.parquet",
+        "gap_hours": 4.183775995555556
+      },
+      {
+        "previous_run": "collector-KXHIGHNY-20260627T233709Z.parquet",
+        "next_run": "collector-KXHIGHNY-20260628T014331Z.parquet",
+        "gap_hours": 2.1057955355555555
+      }
+    ],
+    "latest_runs": [
+      {
+        "file": "collector-KXHIGHNY-20260630T230922Z.parquet",
+        "start": "2026-06-30 23:09:21.273946+00:00",
+        "end": "2026-06-30 23:09:22.704181+00:00",
+        "rows": 12
+      },
+      {
+        "file": "collector-KXHIGHNY-20260702T025931Z.parquet",
+        "start": "2026-07-02 02:59:29.640476+00:00",
+        "end": "2026-07-02 02:59:31.632291+00:00",
+        "rows": 12
+      },
+      {
+        "file": "collector-KXHIGHNY-20260712T014304Z.parquet",
+        "start": "2026-07-12 01:43:02.526073+00:00",
+        "end": "2026-07-12 01:43:03.959313+00:00",
+        "rows": 12
+      },
+      {
+        "file": "collector-KXHIGHNY-20260712T020044Z.parquet",
+        "start": "2026-07-12 02:00:42.501991+00:00",
+        "end": "2026-07-12 02:00:44.022827+00:00",
+        "rows": 12
+      },
+      {
+        "file": "collector-KXHIGHNY-20260712T021004Z.parquet",
+        "start": "2026-07-12 02:10:03.082675+00:00",
+        "end": "2026-07-12 02:10:04.506044+00:00",
+        "rows": 12
+      },
+      {
+        "file": "collector-KXHIGHNY-20260712T021514Z.parquet",
+        "start": "2026-07-12 02:15:12.551130+00:00",
+        "end": "2026-07-12 02:15:14.109598+00:00",
+        "rows": 12
+      },
+      {
+        "file": "collector-KXHIGHNY-20260712T022024Z.parquet",
+        "start": "2026-07-12 02:20:22.887532+00:00",
+        "end": "2026-07-12 02:20:24.402095+00:00",
+        "rows": 12
+      },
+      {
+        "file": "collector-KXHIGHNY-20260712T022532Z.parquet",
+        "start": "2026-07-12 02:25:31.120163+00:00",
+        "end": "2026-07-12 02:25:32.546836+00:00",
+        "rows": 12
+      }
+    ],
+    "observation_join_possible_rows": 2526,
+    "label_counts_latest": [
+      {
+        "label_quality": "from_kalshi_settlement",
+        "len": 510
+      },
+      {
+        "label_quality": "unsettled",
+        "len": 12
+      }
+    ]
+  },
+  "duckdb": {
+    "tables": []
+  },
+  "log": {
+    "collector_runs": 374,
+    "tracebacks": 5,
+    "last_run_line": "collector run: 2026-07-12T02:25:29Z",
+    "bytes": 5955722,
+    "errors": {
+      "KeyboardInterrupt": 2,
+      "Too Many Requests": 0,
+      "HTTPStatusError": 0,
+      "ReadTimeout": 0,
+      "ConnectionError": 0
+    }
+  }
+}

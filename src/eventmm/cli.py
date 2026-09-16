@@ -13,8 +13,14 @@ from rich.table import Table
 
 from eventmm.backtest.data_loader import load_backtest_dataset, summarize_backtest_data
 from eventmm.backtest.engine import run_threshold_backtest
+from eventmm.collector_cli import app as ingest_app
 from eventmm.config.logging import configure_logging
 from eventmm.config.settings import settings
+from eventmm.collector.weather_sources import (
+    WEATHER_LOCATIONS,
+    _collect_nws_forecast,
+    _collect_noaa_daily,
+)
 from eventmm.contracts.weather import parse_weather_contracts
 from eventmm.datasets.coverage import (
     compute_column_coverage,
@@ -29,13 +35,7 @@ from eventmm.datasets.validation import (
     weather_validation_summary,
 )
 from eventmm.external.bls_client import BLSClient
-from eventmm.external.forecast_versions import (
-    append_forecast_version,
-    build_nws_forecast_version_row,
-)
 from eventmm.external.fred_client import FREDClient
-from eventmm.external.noaa_client import NOAAClient
-from eventmm.external.nws_client import NWSClient
 from eventmm.kalshi.rest_client import KalshiRestClient
 from eventmm.lob.book import BinaryOrderBook
 from eventmm.lob.features import compute_features
@@ -49,8 +49,8 @@ from eventmm.modeling.dataset import load_modeling_dataset
 from eventmm.modeling.evaluation import calibration_table, evaluate_probabilities
 from eventmm.modeling.features import FEATURE_SETS
 from eventmm.modeling.models import make_logistic_regression_model
-from eventmm.modeling.walk_forward import evaluate_walk_forward
 from eventmm.modeling.registry import ModelRegistry
+from eventmm.modeling.walk_forward import evaluate_walk_forward
 from eventmm.monitoring.collector_reports import (
     build_collector_health,
     build_orderbook_audit,
@@ -61,17 +61,18 @@ from eventmm.pipelines.weather_collector import WeatherCollectorPipeline
 from eventmm.reports.calibration_report import write_calibration_report
 from eventmm.reports.model_report import write_model_report
 from eventmm.research.baselines import add_weather_baseline_features
-from eventmm.research.forecast_revisions import add_forecast_revision_features
 from eventmm.research.forecast_event_study import (
     build_forecast_revision_event_study,
     summarize_forecast_revision_event_study,
 )
+from eventmm.research.forecast_revisions import add_forecast_revision_features
 from eventmm.research.partitions import (
     build_monotonicity_violations,
     build_partition_features,
     simulate_partition_basket,
 )
 from eventmm.signals.edge import add_edge_columns
+from eventmm.utils.decimal import decimal_json, to_decimal
 
 app = typer.Typer(help="Kalshi event market-making research tools.")
 datasets_app = typer.Typer(help="Dataset registry commands.")
@@ -82,6 +83,8 @@ orderbooks_app = typer.Typer(help="Order-book audit commands.")
 research_app = typer.Typer(
     help="Structural and market microstructure research commands."
 )
+
+app.add_typer(ingest_app, name="ingest")
 app.add_typer(datasets_app, name="datasets")
 app.add_typer(models_app, name="models")
 app.add_typer(backtest_app, name="backtest")
@@ -89,22 +92,6 @@ app.add_typer(collector_app, name="collector")
 app.add_typer(orderbooks_app, name="orderbooks")
 app.add_typer(research_app, name="research")
 console = Console()
-
-WEATHER_LOCATIONS: dict[str, dict[str, Any]] = {
-    "NYC": {
-        "latitude": 40.7128,
-        "longitude": -74.0060,
-        "stations": ["USW00094728", "USW00014732", "USW00094789"],
-    },
-    "CHICAGO": {
-        "latitude": 41.8781,
-        "longitude": -87.6298,
-        "stations": ["KMDW", "KORD"],
-    },
-    "MIAMI": {"latitude": 25.7617, "longitude": -80.1918, "stations": ["KMIA"]},
-    "AUSTIN": {"latitude": 30.2672, "longitude": -97.7431, "stations": ["KAUS"]},
-    "BOSTON": {"latitude": 42.3601, "longitude": -71.0589, "stations": ["KBOS"]},
-}
 
 
 def _client() -> KalshiRestClient:
@@ -117,7 +104,9 @@ def _now_slug() -> str:
 
 def _write_json(path: Path, payload: dict[str, Any]) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(orjson.dumps(payload, option=orjson.OPT_INDENT_2))
+    path.write_bytes(
+        orjson.dumps(payload, option=orjson.OPT_INDENT_2, default=decimal_json)
+    )
     return path
 
 
@@ -157,12 +146,13 @@ async def _fetch_markets(
     client = _client()
     try:
         for item_status in statuses:
-            data = await client.get_markets(
+            async for data in client.pages(
+                client.get_markets,
                 status=item_status,
                 series_ticker=series,
                 limit=limit,
-            )
-            markets.extend(data.get("markets", []))
+            ):
+                markets.extend(data.get("markets", []))
     finally:
         await client.close()
     seen: set[str] = set()
@@ -611,67 +601,6 @@ def run_weather_collector(
     asyncio.run(pipeline.run(iterations=iterations))
 
 
-async def _collect_nws_forecast(location: str) -> None:
-    collection_ts = datetime.now(timezone.utc)
-    loc = WEATHER_LOCATIONS[location.upper()]
-    client = NWSClient()
-    try:
-        point = await client.get_point_metadata(loc["latitude"], loc["longitude"])
-        props = point["properties"]
-        grid_id = props["gridId"]
-        grid_x = props["gridX"]
-        grid_y = props["gridY"]
-        forecast = await client.get_hourly_forecast(grid_id, grid_x, grid_y)
-    finally:
-        await client.close()
-
-    raw_path = _write_json(
-        settings.data_dir
-        / "raw"
-        / "external"
-        / "nws"
-        / f"location={location.upper()}"
-        / f"{_now_slug()}.json",
-        {"point": point, "forecast": forecast},
-    )
-    version_path = append_forecast_version(
-        settings.data_dir,
-        build_nws_forecast_version_row(
-            location=location,
-            collection_ts=collection_ts,
-            raw_response_path=raw_path,
-            forecast_payload=forecast,
-        ),
-    )
-
-    rows = []
-    for period in forecast.get("properties", {}).get("periods", []):
-        rows.append(
-            {
-                "location": location.upper(),
-                "collection_ts": collection_ts,
-                "forecast_issue_ts": collection_ts,
-                "forecast_start_ts": period.get("startTime"),
-                "forecast_end_ts": period.get("endTime"),
-                "forecast_valid_ts": period.get("startTime"),
-                "forecast_date": str(period.get("startTime", ""))[:10],
-                "forecast_temperature": period.get("temperature"),
-                "temperature_unit": period.get("temperatureUnit"),
-                "short_forecast": period.get("shortForecast"),
-                "source": "nws_api",
-                "raw_path": str(raw_path),
-                "forecast_version_path": str(version_path),
-            }
-        )
-
-    out_dir = settings.data_dir / "processed" / "external" / "nws_hourly_forecasts"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / f"location={location.upper()}-{_now_slug()}.parquet"
-    pl.DataFrame(rows).write_parquet(out_path)
-    console.print(f"Wrote {len(rows)} NWS forecast rows to {out_path}")
-    console.print(f"Wrote forecast version row to {version_path}")
-
-
 @app.command("collect-noaa-daily")
 def collect_noaa_daily(
     location: str = typer.Option(...),
@@ -679,51 +608,6 @@ def collect_noaa_daily(
     end: str = typer.Option(...),
 ) -> None:
     asyncio.run(_collect_noaa_daily(location, start, end))
-
-
-async def _collect_noaa_daily(location: str, start: str, end: str) -> None:
-    loc = WEATHER_LOCATIONS[location.upper()]
-    client = NOAAClient(settings.noaa_cdo_token)
-    rows = []
-    try:
-        for station in loc["stations"]:
-            payload = await client.get_daily_data(
-                dataset_id="GHCND",
-                station_id=f"GHCND:{station}",
-                start_date=start,
-                end_date=end,
-                datatype_ids=["TMAX"],
-            )
-            _write_json(
-                settings.data_dir
-                / "raw"
-                / "external"
-                / "noaa"
-                / f"location={location.upper()}"
-                / f"station={station}-{_now_slug()}.json",
-                payload,
-            )
-            for item in payload.get("results", []):
-                rows.append(
-                    {
-                        "location": location.upper(),
-                        "station_id": station,
-                        "date": item.get("date", "")[:10],
-                        "datatype": item.get("datatype"),
-                        "value": item.get("value"),
-                        "unit": "F",
-                        "source": "noaa_cdo",
-                        "received_ts": datetime.now(timezone.utc),
-                    }
-                )
-    finally:
-        await client.close()
-
-    out_dir = settings.data_dir / "processed" / "external" / "noaa_daily_observations"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / f"location={location.upper()}-{start}-{end}.parquet"
-    pl.DataFrame(rows).write_parquet(out_path)
-    console.print(f"Wrote {len(rows)} NOAA observation rows to {out_path}")
 
 
 @app.command("collect-fred")
@@ -1365,7 +1249,7 @@ def research_simulate_baskets(
     dataset: str = "weather_nyc_main_v1_features",
     bucket_every: str = "1m",
     mode: str = "all_or_none",
-    quantity: int = 1,
+    quantity: str = "1",
 ) -> None:
     mode = mode.replace("-", "_")
     if mode not in {"all_or_none", "partial"}:
@@ -1390,7 +1274,7 @@ def research_simulate_baskets(
             continue
         for side in ("yes", "no"):
             result = simulate_partition_basket(
-                group, side=side, mode=mode, quantity=quantity
+                group, side=side, mode=mode, quantity=to_decimal(quantity)
             )
             row = asdict(result)
             row.pop("fills")

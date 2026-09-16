@@ -11,15 +11,15 @@ class BookFeatures:
     market_ticker: str
     environment: str
     ts: datetime | None
-    best_yes_bid: int | None
-    best_yes_ask: int | None
-    best_no_bid: int | None
-    best_no_ask: int | None
-    yes_spread: int | None
-    yes_midpoint: float | None
-    yes_microprice: float | None
-    yes_bid_depth_1: float | None
-    yes_ask_depth_1: float | None
+    best_yes_bid: Decimal | None
+    best_yes_ask: Decimal | None
+    best_no_bid: Decimal | None
+    best_no_ask: Decimal | None
+    yes_spread: Decimal | None
+    yes_midpoint: Decimal | None
+    yes_microprice: Decimal | None
+    yes_bid_depth_1: Decimal | None
+    yes_ask_depth_1: Decimal | None
     imbalance_1: float | None
     imbalance_3: float | None
     book_is_crossed: bool
@@ -28,12 +28,12 @@ class BookFeatures:
     missing_reason: str | None
 
 
-def _top_bid_depth(book_side: dict[int, Decimal], levels: int) -> Decimal:
+def _top_bid_depth(book_side: dict[Decimal, Decimal], levels: int) -> Decimal:
     prices = sorted(book_side, reverse=True)[:levels]
     return sum((book_side[price] for price in prices), Decimal("0"))
 
 
-def _top_ask_depth(book_side: dict[int, Decimal], levels: int) -> Decimal:
+def _top_ask_depth(book_side: dict[Decimal, Decimal], levels: int) -> Decimal:
     prices = sorted(book_side)[:levels]
     return sum((book_side[price] for price in prices), Decimal("0"))
 
@@ -64,9 +64,9 @@ def compute_features(
     ):
         denominator = bid_depth_1 + ask_depth_1
         if denominator > 0:
-            microprice = float(
-                (Decimal(ask) * bid_depth_1 + Decimal(bid) * ask_depth_1) / denominator
-            )
+            microprice = (
+                Decimal(ask) * bid_depth_1 + Decimal(bid) * ask_depth_1
+            ) / denominator
 
     bid_depth_3 = _top_bid_depth(book.yes_bids, 3)
     ask_depth_3 = _top_ask_depth(yes_asks, 3)
@@ -84,8 +84,8 @@ def compute_features(
         yes_spread=spread,
         yes_midpoint=book.yes_midpoint(),
         yes_microprice=microprice,
-        yes_bid_depth_1=float(bid_depth_1) if bid_depth_1 is not None else None,
-        yes_ask_depth_1=float(ask_depth_1) if ask_depth_1 is not None else None,
+        yes_bid_depth_1=bid_depth_1,
+        yes_ask_depth_1=ask_depth_1,
         imbalance_1=_imbalance(
             bid_depth_1 or Decimal("0"), ask_depth_1 or Decimal("0")
         ),

@@ -1,11 +1,10 @@
 from datetime import datetime
-from decimal import Decimal
 from typing import Any
 
 import orjson
 
 from eventmm.lob.parsing import parse_book_levels
-from eventmm.utils.decimal import dollars_to_cents
+from eventmm.utils.decimal import dollars_to_cents, quantity_to_decimal
 
 
 def parse_ws_message(raw: str | bytes) -> dict[str, Any]:
@@ -29,8 +28,8 @@ def _parse_ts(value: Any) -> datetime | None:
 
 def parse_orderbook_snapshot(msg: dict[str, Any]) -> dict[str, Any]:
     payload = msg["msg"]
-    yes_levels = payload.get("yes_dollars_fp") or payload.get("yes_dollars") or []
-    no_levels = payload.get("no_dollars_fp") or payload.get("no_dollars") or []
+    yes_levels = payload.get("yes_dollars_fp", payload.get("yes_dollars", [])) or []
+    no_levels = payload.get("no_dollars_fp", payload.get("no_dollars", [])) or []
 
     return {
         "market_ticker": payload["market_ticker"],
@@ -48,6 +47,6 @@ def parse_orderbook_delta(msg: dict[str, Any]) -> dict[str, Any]:
         "seq": msg["seq"],
         "side": payload["side"],
         "price_cents": dollars_to_cents(payload["price_dollars"]),
-        "delta_qty": Decimal(str(payload["delta_fp"])),
+        "delta_qty": quantity_to_decimal(payload["delta_fp"]),
         "ts": _parse_ts(payload.get("ts")),
     }

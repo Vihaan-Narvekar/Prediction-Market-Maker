@@ -290,3 +290,94 @@ Establish quality baseline for weather research workflow
 ## License
 
 See [LICENSE](LICENSE).
+
+### Fixed-point prices and fractional quantities
+
+Financial domain values use Python `Decimal` (`Price`, `Quantity`, and `Money`
+from `eventmm.utils.decimal`). REST market `*_dollars` and `*_fp` fields are
+parsed directly from strings. Fixed-point quantities take precedence over legacy
+integer fields, including zero values. Market `price_level_structure` labels and
+decimal `price_ranges` are retained; `snap_price` uses the supplied ranges rather
+than hardcoded structure names.
+
+Existing order-book, feature, backtest, and research price/money fields remain
+**cent-denominated**, now with fractional cents. For example, API `"0.4201"`
+dollars becomes `Decimal("42.0100")` cents without rounding. A binary payoff is
+still 100 cents. API dollar fields and price-range bands remain in dollars;
+`dollars_to_cents` and `cents_to_dollars` are explicit, lossless conversions.
+Quantities, depth, fills, positions, fees, and settlement calculations preserve
+fractional contracts. Probability/model inputs and dimensionless statistics may
+still use floating point.
+
+New Parquet output stores decimal financial columns; older cent-denominated
+numeric datasets remain readable and are converted at the backtest boundary.
+JSON financial values are emitted as decimal strings, including backtest metrics;
+consumers should parse these with `Decimal`. Existing stored datasets are not
+rewritten, and precision lost by earlier whole-cent rounding cannot be recovered.
+The fee model retains its existing configurable fee policy and rounds only at
+the fee boundary; this change does not implement exchange fee-accumulator rebates.
+
+### WebSocket state and trading halt rule
+
+`KalshiWebSocketClient` subscribes by default to `orderbook_delta`, `user_orders`,
+`fill` (the API's user-fills channel), `market_positions`, `market_lifecycle_v2`,
+`multivariate_market_lifecycle`, and `order_group_updates`. Book subscriptions use
+the configured market tickers. Account, lifecycle, and group subscriptions are
+unfiltered. A `channels` subset can be used for collection, but the live trading
+gate requires all default channels to be acknowledged.
+
+The client owns `state: StreamState`. It applies each message **before** invoking
+the handler, converting financial scalar fields and book levels to decimals.
+`state.orders`, `fills`, `positions` (keyed by subaccount and ticker),
+`order_groups`, and `events` retain the latest observed state. Fills are deduplicated
+by trade ID and are not added to positions a second time. Triggered/deleted groups
+remain blocked through limit updates; a reset can clear the group block.
+Sequence continuity is checked per subscription ID, including interleaved books.
+
+**No new orders or amendments while state is invalid.** Route live submissions
+through `await client.execute_when_ready(ticker, submit, order_group_id=...)`;
+`submit` is an async transport callback. The gate raises `TradingHalted` before
+calling it if disconnected, unsubscribed, unreconciled, awaiting a snapshot,
+stale (30 seconds by default), inactive/closed, missing a price grid, off-grid,
+one-sided, locked/crossed, or using a blocked/unknown order group. If the transport
+queues or rate-limits a request, it must recheck `state.require_trading_ready`
+immediately before sending. Cancellation is permitted while halted. This repository
+has no live order-placement adapter; the gate does not itself submit or cancel
+exchange orders, and a halt does not remove already-resting orders.
+
+Disconnects, sequence gaps, malformed messages, subscription errors, and handler
+failures invalidate state before reconnect backoff. Reconnection authenticates
+again and resubscribes with fresh command IDs; acknowledgements have a timeout.
+Lifecycle changes invalidate affected books and request fresh snapshots. Receiving
+an acknowledgement, a book snapshot, or a private update alone never certifies a
+complete account recovery.
+
+After startup/reconnect, the application must reconcile authoritative orders,
+positions, groups, and market metadata against the live stream and any in-flight
+order responses. Capture `state.reconciliation_token` before reconciliation, use
+`set_market_metadata(ticker, metadata, token)`, then call `reconcile_account` with
+complete reconciled account lists and that token. Group records need an explicit
+boolean `blocked`; unknown status stays blocked. Tokens reject results spanning a
+reconnect or an intervening private/lifecycle update. They do **not** solve REST
+snapshot/stream ordering: the application must resolve buffered/in-flight updates
+before certifying reconciliation and keep the receive loop running while doing so.
+There is deliberately no automatic account reconciliation or automatic trading
+resume based merely on an open socket. The gate is evaluated again on every order,
+so staleness and scheduled market close stop submissions even without new messages.
+
+### Supervised WebSocket ingestion
+
+```bash
+uv run python -m eventmm.collector_cli supervise --series KXHIGHNY --location NYC
+```
+
+This runs independently supervised market-data and NWS workers. Add `--noaa` for
+NOAA (requires its token), or `--private` to include private Kalshi events. Signed
+WebSocket authentication requires the configured Kalshi key and private-key path.
+Raw books, public trades, REST recovery responses and lifecycle/session boundaries
+are persisted in SQLite WAL archives under `data/raw/collector/<environment>/`.
+Discovery enrolls markets dynamically; paginated trade recovery resumes from durable
+checkpoints. The collector never enables trading.
+
+See [the collector runbook](docs/collector.md) for commands, budgets, recovery
+semantics, archive queries, limitations, and Docker supervision.

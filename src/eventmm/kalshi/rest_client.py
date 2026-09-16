@@ -1,9 +1,14 @@
 from typing import Any
+from collections.abc import AsyncIterator
+
+from eventmm.kalshi.http_budget import request_with_budget
+
 import httpx
 import structlog
 
 from eventmm.kalshi.auth import KalshiAuth
 from eventmm.kalshi.rate_limiter import TokenBucket
+from eventmm.schemas.market import normalize_market
 
 logger = structlog.get_logger()
 
@@ -15,10 +20,17 @@ class KalshiRestClient:
         auth: KalshiAuth | None = None,
         rate_limiter: TokenBucket | None = None,
         timeout: float = 10.0,
+        *,
+        response_hook=None,
+        retry_attempts: int = 4,
+        retry_budget: float = 60.0,
     ):
         self.base_url = base_url.rstrip("/")
         self.auth = auth
-        self.rate_limiter = rate_limiter
+        self.rate_limiter = rate_limiter or TokenBucket(5, 5)
+        self.response_hook = response_hook
+        self.retry_attempts = retry_attempts
+        self.retry_budget = retry_budget
         self.client = httpx.AsyncClient(timeout=timeout)
 
     async def _request(
@@ -28,31 +40,28 @@ class KalshiRestClient:
         params: dict[str, Any] | None = None,
         authenticated: bool = False,
     ) -> dict[str, Any]:
-        if self.rate_limiter:
-            await self.rate_limiter.acquire()
-
         url = f"{self.base_url}{path}"
-        headers = {}
-
-        if authenticated:
-            if self.auth is None:
-                raise ValueError("Authenticated request requires KalshiAuth.")
-            headers.update(self.auth.sign_headers(method, url))
-
-        logger.info("rest_request_started", method=method, path=path, params=params)
-
-        resp = await self.client.request(method, url, params=params, headers=headers)
-
-        if resp.status_code == 429:
-            logger.warning("rate_limit_hit", path=path)
-            resp.raise_for_status()
-
-        resp.raise_for_status()
-
-        logger.info(
-            "rest_request_completed", method=method, path=path, status=resp.status_code
+        if authenticated and self.auth is None:
+            raise ValueError("Authenticated request requires KalshiAuth.")
+        resp = await request_with_budget(
+            self.client,
+            method,
+            url,
+            limiter=self.rate_limiter,
+            attempts=self.retry_attempts,
+            budget_seconds=self.retry_budget,
+            headers_factory=(lambda: self.auth.sign_headers(method, url))
+            if self.auth and authenticated
+            else None,
+            response_hook=self.response_hook,
+            params=params,
         )
-        return resp.json()
+        data = resp.json()
+        if "markets" in data:
+            data["markets"] = [normalize_market(market) for market in data["markets"]]
+        if "market" in data:
+            data["market"] = normalize_market(data["market"])
+        return data
 
     async def get_markets(
         self,
@@ -82,11 +91,29 @@ class KalshiRestClient:
         params = {"depth": depth} if depth is not None else None
         return await self._request("GET", f"/markets/{ticker}/orderbook", params=params)
 
-    async def get_trades(self, ticker: str, limit: int = 1000) -> dict[str, Any]:
+    async def get_trades(
+        self,
+        ticker: str,
+        limit: int = 1000,
+        *,
+        cursor: str | None = None,
+        min_ts: int | None = None,
+        max_ts: int | None = None,
+    ) -> dict[str, Any]:
         return await self._request(
             "GET",
             "/markets/trades",
-            params={"ticker": ticker, "limit": limit},
+            params={
+                k: v
+                for k, v in {
+                    "ticker": ticker,
+                    "limit": limit,
+                    "cursor": cursor,
+                    "min_ts": min_ts,
+                    "max_ts": max_ts,
+                }.items()
+                if v is not None
+            },
         )
 
     async def get_historical_cutoff(self) -> dict[str, Any]:
@@ -125,6 +152,23 @@ class KalshiRestClient:
         if is_block_trade is not None:
             params["is_block_trade"] = is_block_trade
         return await self._request("GET", "/historical/trades", params=params)
+
+    async def pages(
+        self, fetch, *, max_pages: int = 10000, **kwargs
+    ) -> AsyncIterator[dict]:
+        """Fail explicitly on looping cursors or a budget-exhausted partial scan."""
+        cursor = None
+        seen = set()
+        for _ in range(max_pages):
+            page = await fetch(cursor=cursor, **kwargs)
+            yield page
+            cursor = page.get("cursor")
+            if not cursor:
+                return
+            if cursor in seen:
+                raise RuntimeError("Pagination cursor repeated")
+            seen.add(cursor)
+        raise RuntimeError("Pagination page budget exhausted")
 
     async def close(self) -> None:
         await self.client.aclose()

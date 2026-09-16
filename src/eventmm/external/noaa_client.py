@@ -36,15 +36,30 @@ class NOAAClient(ExternalAPIClient):
         end_date: str,
         datatype_ids: list[str],
     ) -> dict[str, Any]:
-        return await self.get(
-            "/data",
-            params={
-                "datasetid": dataset_id,
-                "stationid": station_id,
-                "startdate": start_date,
-                "enddate": end_date,
-                "datatypeid": ",".join(datatype_ids),
-                "limit": 1000,
-                "units": "standard",
-            },
-        )
+        rows = []
+        offset = 1
+        for _ in range(10000):
+            page = await self.get(
+                "/data",
+                params={
+                    "datasetid": dataset_id,
+                    "stationid": station_id,
+                    "startdate": start_date,
+                    "enddate": end_date,
+                    "datatypeid": ",".join(datatype_ids),
+                    "limit": 1000,
+                    "offset": offset,
+                    "units": "standard",
+                },
+            )
+            items = page.get("results", [])
+            rows.extend(items)
+            count = (
+                page.get("metadata", {}).get("resultset", {}).get("count", len(rows))
+            )
+            if len(rows) >= count:
+                return {**page, "results": rows}
+            if not items:
+                raise RuntimeError("NOAA pagination stopped before reported count")
+            offset += len(items)
+        raise RuntimeError("NOAA page budget exhausted")

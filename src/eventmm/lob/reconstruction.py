@@ -21,8 +21,8 @@ class OrderBookManager:
     def apply_snapshot(
         self,
         market_ticker: str,
-        yes_bids: dict[int, Decimal],
-        no_bids: dict[int, Decimal],
+        yes_bids: dict[Decimal, Decimal],
+        no_bids: dict[Decimal, Decimal],
         seq: int | None = None,
         ts: datetime | None = None,
     ) -> BinaryOrderBook:
@@ -41,7 +41,7 @@ class OrderBookManager:
         self,
         market_ticker: str,
         side: str,
-        price_cents: int,
+        price_cents: Decimal,
         delta_qty: Decimal,
         seq: int,
         ts: datetime | None = None,

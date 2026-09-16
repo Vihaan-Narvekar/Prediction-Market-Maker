@@ -1,3 +1,4 @@
+from decimal import Decimal
 from datetime import date, datetime, timedelta, timezone
 
 import polars as pl
@@ -83,7 +84,7 @@ def test_forecast_revision_event_study_aligns_quotes_and_metrics():
     assert first_post["moved_in_forecast_direction"]
     assert first_post["forecast_model_probability"] == 10.5 / 11
     assert first_post["forecast_error_sample_size"] == 10
-    assert first_post["forecast_model_yes_edge_after_fees"] == 10.5 / 11 * 100 - 43
+    assert first_post["forecast_model_yes_edge_after_fees"] == Decimal(str(10.5 / 11)) * 100 - 43
     assert first_post["incorporation_minutes"] == 0.5
     assert result["partition_probability_change"].null_count() == len(result)
 

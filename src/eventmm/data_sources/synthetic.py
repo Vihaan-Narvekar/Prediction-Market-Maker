@@ -16,8 +16,8 @@ def make_synthetic_book(
     no_bid = 100 - yes_ask
     book = BinaryOrderBook(
         market_ticker=market_ticker,
-        yes_bids={yes_bid: Decimal(str(bid_qty))},
-        no_bids={no_bid: Decimal(str(ask_qty))},
+        yes_bids={Decimal(str(yes_bid)): Decimal(str(bid_qty))},
+        no_bids={Decimal(str(no_bid)): Decimal(str(ask_qty))},
     )
     book.validate()
     return book
